@@ -1,13 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+
+/*
+ * This script makes the enemy move between given waypoints
+ * with a Linear Interpolation between them using Coroutines
+ * and Vector3.Lerp
+ * 
+ */
 
 public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] List<Waypoint> tiles = new List<Waypoint>();
-    [SerializeField] float waitTime = 1f;
+    [SerializeField] [Range(0f,5f)] float speed = 1f;
 
-    // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(FollowPath());
@@ -16,17 +23,26 @@ public class EnemyMovement : MonoBehaviour
 
     IEnumerator FollowPath()
     {
+        //iterating on all the waypoint
         foreach (var waypoint in tiles)
         {
-            transform.position = waypoint.transform.position;
-            Debug.Log("z");
-            yield return new WaitForSeconds(waitTime);
+
+			Vector3 startPosition = transform.position;
+            Vector3 endPosition = waypoint.transform.position;
+            float distanceCovered = 0f;
+
+            //making it look at the direction which its moving
+            transform.LookAt(endPosition);
+
+            while (distanceCovered < 1f)
+            {
+                distanceCovered += Time.deltaTime * speed;
+                transform.position = Vector3.Lerp(startPosition, endPosition, distanceCovered);
+				yield return new WaitForEndOfFrameUnit();
+			}
+
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }
