@@ -11,8 +11,8 @@ public class TowerMainScript : MonoBehaviour
     public float fireRate = 1f; //saniye baþýna atýlacak mermi
     private bool isShooting = false;
 
-    public float shootCooldown = 1.0f; // cooldown between shots
-    private float currentCooldown = 0.0f;
+    public float shootCooldown = 1.0f; //mermiler arasý beklenecek süre
+    private float currentCooldown = 0.0f; //mermiler arasý geçen süre
 
     void Update()
     {
@@ -25,7 +25,7 @@ public class TowerMainScript : MonoBehaviour
             if (currentCooldown <= 0)
             {
                 Shoot();
-                currentCooldown = shootCooldown; // reset the cooldown
+                currentCooldown = shootCooldown; //cooldown reset
             }
 
             //düþmana bakmasý için
@@ -40,7 +40,7 @@ public class TowerMainScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            enemiesInRange.Add(other.transform);
+            enemiesInRange.Add(other.transform); //target listesine ekle
             if (!isShooting)
             {
                 Shoot();
@@ -53,8 +53,8 @@ public class TowerMainScript : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            enemiesInRange.Remove(other.transform);
-            if (other.transform == target)
+            enemiesInRange.Remove(other.transform); //target listesinden cýkar
+            if (other.transform == target) //az once rangeden çýkan enemy asýl hedefimizdiyse her þeyi sýfýrla baþtan hedef seç vs vs
             {
                 isShooting = false;
                 target = null;
