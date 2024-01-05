@@ -18,9 +18,11 @@ public class Bullet : MonoBehaviour
         //mermi hareketi
         float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+    }
 
-        //vurdu mu vurmadý mý kontrolü
-        if (transform.position == targetPosition)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
         {
             //BURAYA DAMAGE EKLENECEK
             Destroy(gameObject); //mermiyi destroy

@@ -8,17 +8,26 @@ public class TowerMainScript : MonoBehaviour
     public Transform bulletPrefab;
     public Transform shootingPoint;
     public Transform target;
+    public float fireRate = 1f; //saniye baþýna atýlacak mermi
+    private bool isShooting = false;
 
-    void Start()
-    {
-        
-    }
+    public float shootCooldown = 1.0f; // cooldown between shots
+    private float currentCooldown = 0.0f;
 
     void Update()
     {
-        Transform target = ChooseTarget();
+        target = ChooseTarget();
+
         if (target != null)
         {
+            currentCooldown -= Time.deltaTime;
+
+            if (currentCooldown <= 0)
+            {
+                Shoot();
+                currentCooldown = shootCooldown; // reset the cooldown
+            }
+
             //düþmana bakmasý için
             Vector3 targetDirection = target.position - transform.position;
             targetDirection.y = 0; //yerinden yukarý aþaðý oynamasýn 
@@ -32,7 +41,10 @@ public class TowerMainScript : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemiesInRange.Add(other.transform);
-            Shoot();
+            if (!isShooting)
+            {
+                Shoot();
+            }
             Debug.Log("enemy in range");
         }
     }
@@ -42,7 +54,11 @@ public class TowerMainScript : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy"))
         {
             enemiesInRange.Remove(other.transform);
-            //BURDA ATEÞÝ KESME EKLENECEK
+            if (other.transform == target)
+            {
+                isShooting = false;
+                target = null;
+            }
             Debug.Log("enemy out of range");
         }
     }
@@ -58,13 +74,19 @@ public class TowerMainScript : MonoBehaviour
 
     void Shoot()
     {
-        //bullet instantiate etme
-        Transform bullet = Instantiate(bulletPrefab, shootingPoint.position, Quaternion.identity);
+        Debug.Log("Ateþ!");
+        isShooting = true;
 
-        //atýþ yönü
-        Vector3 shootingDirection = (target.position - shootingPoint.position).normalized;
+        //yönünü belirleme merminin
+        Vector3 directionToTarget = (target.position - shootingPoint.position).normalized;
+        Quaternion lookRotation = Quaternion.LookRotation(directionToTarget);
 
-        //atýþ hedefi
-        bullet.GetComponent<Bullet>().Initialize(target.position);
+        //mermi instantiate etme
+        Transform bulletInstance = Instantiate(bulletPrefab, shootingPoint.position, lookRotation);
+
+        bulletInstance.GetComponent<Bullet>().Initialize(target.position);
+
+        //cooldown
+        isShooting = false;
     }
 }
