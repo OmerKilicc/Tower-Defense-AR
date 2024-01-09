@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField] bool isPlacable;
+	public bool IsPlacable
+	{
+		get { return isPlacable; }
+		set { isPlacable = value; }
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	private void OnMouseDown()
+	{
+		if (isPlacable)
+		{
+			Debug.Log($"Placable at {transform.name}");
+			//TODO: Place tower if money is enough for that tower and make isplacable false
+		}
+	}
 }
