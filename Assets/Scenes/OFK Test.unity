@@ -497,6 +497,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 546825661181010268, guid: eda3a671f96ca07448c1c4f0dccc3352,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 1504728964792191559, guid: eda3a671f96ca07448c1c4f0dccc3352,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -547,10 +552,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3614033588711119826, guid: eda3a671f96ca07448c1c4f0dccc3352,
+        type: 3}
+      propertyPath: m_TagString
+      value: Path
+      objectReference: {fileID: 0}
+    - target: {fileID: 3855086186990073982, guid: eda3a671f96ca07448c1c4f0dccc3352,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 4295757210283860441, guid: eda3a671f96ca07448c1c4f0dccc3352,
         type: 3}
       propertyPath: m_Name
       value: Environment
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520353989306733038, guid: eda3a671f96ca07448c1c4f0dccc3352,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 5269918566358214448, guid: eda3a671f96ca07448c1c4f0dccc3352,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 6466929564495187589, guid: eda3a671f96ca07448c1c4f0dccc3352,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 6757394408627145167, guid: eda3a671f96ca07448c1c4f0dccc3352,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 7176163654563260984, guid: eda3a671f96ca07448c1c4f0dccc3352,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700481573910950504, guid: eda3a671f96ca07448c1c4f0dccc3352,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
