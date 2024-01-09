@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    [SerializeField] private int bulletDamage = 25;
     public float speed = 50f;
     private Vector3 targetPosition;
+    EnemyData enemyData;
 
     //towerdan çaðýrýlan fonksiyon
     public void Initialize(Vector3 targetPos)
@@ -24,8 +26,17 @@ public class Bullet : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            //BURAYA DAMAGE EKLENECEK
-            Destroy(gameObject); //mermiyi destroy
+            enemyData = other.GetComponent<EnemyData>();
+            enemyData.Health -= bulletDamage;
+            
+            if(enemyData.Health <= 0) 
+            {
+				//TODO: Add enemyData.Reward to total money of player
+                Destroy(other.gameObject);
+			}
+
+			//BURAYA DAMAGE EKLENECEK
+			Destroy(gameObject); //mermiyi destroy
         }
     }
 }
