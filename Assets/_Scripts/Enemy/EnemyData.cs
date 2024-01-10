@@ -2,27 +2,47 @@ using UnityEngine;
 
 public class EnemyData : MonoBehaviour
 {
-	[SerializeField] private int health = 100;
-	[SerializeField] private int reward = 50;
+	MoneyHandler bank;
 
 	// Health property
+	[SerializeField] int health = 100;
 	public int Health
 	{
 		get { return health; }
-		set
-		{
-			health = Mathf.Max(0, value); // Saðlýk deðerini sýfýrýn altýna düþürmemek için
-		}
+		set { health = Mathf.Max(0, value); }
 	}
 
 	// Reward property
-	public int Reward
+	[SerializeField] int goldReward = 25;
+	public int GoldReward
 	{
-		get { return reward; }
-		set
-		{
-			reward = Mathf.Max(0, value); // Ödül deðerini sýfýrýn altýna düþürmemek için
-		}
+		get { return goldReward; }
+		set { goldReward = Mathf.Max(0, value); }
 	}
 
+	[SerializeField] int goldPenalty = 25;
+	public int GoldPenalty
+	{
+		get { return goldPenalty; }
+		set { goldPenalty = Mathf.Max(0, value); }
+	}
+
+	private void Start()
+	{
+		bank = FindObjectOfType<MoneyHandler>();
+	}
+
+	public void RewardGold()
+	{
+		if (bank == null) return;
+
+		bank.Deposit(goldReward);
+	}
+
+	public void StealGold()
+	{
+		if (bank == null) return;
+
+		bank.Withdraw(goldPenalty);
+	}
 }

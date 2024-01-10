@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Waypoint : MonoBehaviour
 {
+	[SerializeField] GameObject towerPrefab;
 	[SerializeField] bool isPlacable;
 	public bool IsPlacable
 	{
@@ -15,8 +16,9 @@ public class Waypoint : MonoBehaviour
 	{
 		if (isPlacable)
 		{
-			Debug.Log($"Placable at {transform.name}");
-			//TODO: Place tower if money is enough for that tower and make isplacable false
+			TowerPlacer towerPlacer = towerPrefab.GetComponent<TowerPlacer>();
+			bool isPlaced = towerPlacer.CreateTower(towerPrefab, transform.position);
+			IsPlacable = !isPlaced;
 		}
 	}
 }

@@ -5,12 +5,15 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] private int bulletDamage = 25;
-    public float speed = 50f;
     private Vector3 targetPosition;
-    EnemyData enemyData;
 
-    //towerdan çaðýrýlan fonksiyon
-    public void Initialize(Vector3 targetPos)
+	public float speed = 50f;
+
+	EnemyData enemyData;
+
+
+	//towerdan çaðýrýlan fonksiyon
+	public void Initialize(Vector3 targetPos)
     {
         targetPosition = targetPos;
     }
@@ -31,14 +34,14 @@ public class Bullet : MonoBehaviour
             
             if(enemyData.Health <= 0) 
             {
-				//TODO: Add enemyData.Reward to total money of player
-                Destroy(other.gameObject);
-			}
+                other.gameObject.SetActive(false);
+                enemyData.RewardGold();
+            }
 
-			//BURAYA DAMAGE EKLENECEK
-			Destroy(gameObject); //mermiyi destroy
-        }
-    }
+			//TODO : make bullets inactive by adding them to objectpool
+			Destroy(gameObject);
+		}
+	}
 }
 
 

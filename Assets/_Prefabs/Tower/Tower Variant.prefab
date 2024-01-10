@@ -80,6 +80,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7031371068631390335}
+    - targetCorrespondingSourceObject: {fileID: 3219458064393657486, guid: 8a965e088bae16643aab3d07ccfd5e2e,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2622181570958014507}
   m_SourcePrefab: {fileID: 100100000, guid: 8a965e088bae16643aab3d07ccfd5e2e, type: 3}
 --- !u!4 &7001874868267842344 stripped
 Transform:
@@ -133,3 +137,16 @@ MonoBehaviour:
   target: {fileID: 0}
   fireRate: 1
   shootCooldown: 1
+--- !u!114 &2622181570958014507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7482389067817698191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e14f7f45687914081c5303ae5cfb8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 75
