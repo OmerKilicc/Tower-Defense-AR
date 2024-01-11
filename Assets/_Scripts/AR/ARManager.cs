@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using System.Linq;
 using System;
+using TMPro;
 
 public class ARManager : MonoBehaviour
 {
@@ -27,15 +28,22 @@ public class ARManager : MonoBehaviour
     }
     #endregion
 
-    
+
+    [SerializeField]
+    private TMP_Text _sizeText;
+
     [SerializeField]
     private ARPlaneManager _planeManager;
+
+    public Action OnPlaneDetectionDone;
 
     [Tooltip("Maximum plane size by m^2")]
     public float MaxPlaneSize;
     private float _maxPlaneSize => MaxPlaneSize;
 
     private float _currentPlaneSize;
+
+    private bool _isDetectionDone = false;
 
     void TogglePlaneDetection(bool isOpen) 
     {
@@ -45,9 +53,12 @@ public class ARManager : MonoBehaviour
     public void BoundariesUpdated(float size)
     {
         _currentPlaneSize += size;
-        if (HasSizeExceededMaxLimit) 
+        _sizeText.text = _currentPlaneSize.ToString();
+        if (HasSizeExceededMaxLimit && !_isDetectionDone) 
         {
+            OnPlaneDetectionDone?.Invoke();
             TogglePlaneDetection(false);
+            _isDetectionDone = true;
         }
     }
 
@@ -74,6 +85,7 @@ public class ARManager : MonoBehaviour
         {
             pointAtTheEdge = new  Vector3(plane.transform.position.x, plane.transform.position.y, plane.transform.position.z  + plane.size.y / 2);
         }
+        Instantiate(PlacementController.Instance.PointAtTheEdge, pointAtTheEdge, Quaternion.identity);
 
         var mesh = plane.GetComponent<MeshFilter>().sharedMesh;
 
@@ -84,19 +96,25 @@ public class ARManager : MonoBehaviour
 
         foreach (var vertex in mesh.vertices) 
         {
-            if(Vector3.Distance(vertex + plane.transform.position,pointAtTheEdge) < closestVertexDistance) 
+            if(Vector3.Distance(vertex,pointAtTheEdge) < closestVertexDistance) 
             {
-                closestVertexDistance = Vector3.Distance(vertex + plane.transform.position, pointAtTheEdge);
+                closestVertexDistance = Vector3.Distance(vertex, pointAtTheEdge);
                 closestVertex = vertex;
             }
-            if(Vector3.Distance(vertex + plane.transform.position,pointAtTheEdge) > furthestVertexDistance) 
+            if(Vector3.Distance(vertex,pointAtTheEdge) > furthestVertexDistance) 
             {
-                furthestVertexDistance = Vector3.Distance(vertex + plane.transform.position, pointAtTheEdge);
+                furthestVertexDistance = Vector3.Distance(vertex, pointAtTheEdge);
                 furthestVertex = vertex;
             }
         }
+        closestVertex = new Vector3(closestVertex.x,plane.transform.position.y,closestVertex.z);
+        furthestVertex = new Vector3(furthestVertex.x,plane.transform.position.y,furthestVertex.z);
 
-            return new List<Vector3> {closestVertex,furthestVertex};
+        PlacementController.Instance._locationDebug.text = "Closest: " + closestVertex + "Furthest: " + furthestVertex;
+        Instantiate(PlacementController.Instance.PointAtTheClosest,closestVertex, Quaternion.identity);
+        Instantiate(PlacementController.Instance.PointAtTheFurthest,furthestVertex, Quaternion.identity);
+
+        return new List<Vector3> {closestVertex,furthestVertex};
     }
 
     private bool HasSizeExceededMaxLimit => _currentPlaneSize >= MaxPlaneSize;

@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
@@ -10,6 +12,25 @@ public class PlacementController : MonoBehaviour
     public static PlacementController Instance { get; private set; }
 
     private ARRaycastManager _arRaycastManager;
+
+
+    #region DebuggingPurposes
+    [SerializeField]
+    private GameObject _objectToSpawn;
+
+    [SerializeField]
+    private TMP_Text _canvasObject;
+    [SerializeField]
+    public TMP_Text _locationDebug;
+
+    public GameObject PointAtTheEdge;
+    public GameObject PointAtTheClosest;
+    public GameObject PointAtTheFurthest;
+    public GameObject PointAtEveryVertex;
+    
+
+    #endregion
+
 
     private void Awake()
     {
@@ -23,6 +44,12 @@ public class PlacementController : MonoBehaviour
         }
 
         _arRaycastManager = GetComponent<ARRaycastManager>();
+        ARManager.Instance.OnPlaneDetectionDone += OnPlaneDetectionDone;
+    }
+
+    private void OnPlaneDetectionDone()
+    {
+        SpawnHeadquarterAndSoldierSpawn();
     }
 
     static List<ARRaycastHit> hits= new List<ARRaycastHit>();
@@ -55,5 +82,15 @@ public class PlacementController : MonoBehaviour
         }
         touchPosition = default;
         return false;
+    }
+
+    void SpawnHeadquarterAndSoldierSpawn() 
+    {
+        var plane = ARManager.Instance.TryGetBiggestARPlane();
+        var spawns = ARManager.Instance.TryGetPlaneEdges(plane);
+        var instantiated = Instantiate(_objectToSpawn, spawns[0],Quaternion.identity);
+        var instantiated2 = Instantiate(_objectToSpawn, spawns[1],Quaternion.identity);
+        _canvasObject.gameObject.SetActive(true);
+        _canvasObject.text = instantiated.transform.position + " " + instantiated2.transform.position; 
     }
 }
