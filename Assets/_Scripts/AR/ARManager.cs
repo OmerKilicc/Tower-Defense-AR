@@ -57,6 +57,7 @@ public class ARManager : MonoBehaviour
         if (HasSizeExceededMaxLimit && !_isDetectionDone) 
         {
             OnPlaneDetectionDone?.Invoke();
+            GameManager.Instance.UpdateGameState(GameManager.GameState.PlaceGameScene);
             TogglePlaneDetection(false);
             _isDetectionDone = true;
         }

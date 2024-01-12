@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 
@@ -13,6 +14,10 @@ public class PlacementController : MonoBehaviour
 
     private ARRaycastManager _arRaycastManager;
 
+    [SerializeField]
+    private GameObject _gameScene;
+
+    static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
     #region DebuggingPurposes
     [SerializeField]
@@ -45,7 +50,26 @@ public class PlacementController : MonoBehaviour
         }
 
         _arRaycastManager = GetComponent<ARRaycastManager>();
+        GameManager.OnGameStateChanged += OnGameStateChanged;
         ARManager.Instance.OnPlaneDetectionDone += OnPlaneDetectionDone;
+    }
+
+    private void OnGameStateChanged(GameManager.GameState state)
+    {
+        if(state == GameManager.GameState.PlaceGameScene) 
+        {
+            _canvasObject.text = "Subscribed";
+            InputManager.Instance.OnTouchedScreen += ReplaceGameSceneWithTouchPosition;
+        }
+        else 
+        {
+            InputManager.Instance.OnTouchedScreen -= ReplaceGameSceneWithTouchPosition;
+        }
+    }
+
+    private void OnDisable()
+    {
+        InputManager.Instance.OnTouchedScreen -= ReplaceGameSceneWithTouchPosition;
     }
 
     private void OnPlaneDetectionDone()
@@ -53,7 +77,7 @@ public class PlacementController : MonoBehaviour
         SpawnHeadquarterAndSoldierSpawn();
     }
 
-    static List<ARRaycastHit> hits= new List<ARRaycastHit>();
+    
 
     void Update()
     {
@@ -74,6 +98,17 @@ public class PlacementController : MonoBehaviour
         return false;
     }
 
+    public void ReplaceGameSceneWithTouchPosition(Vector2 touchPosition) 
+    {
+        _canvasObject.text = "EventTriggered";
+        if (Instance._arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
+        {
+            _canvasObject.text = "ReplacedScene";
+            var hitPose = hits[0].pose;
+            _gameScene.transform.position = hitPose.position;
+            _gameScene.SetActive(true);
+        }
+    }
 
     bool TryGetTouchPosition(out Vector2 touchPosition) 
     {
@@ -94,9 +129,8 @@ public class PlacementController : MonoBehaviour
         var instantiated = Instantiate(_objectToSpawn, spawns[0],Quaternion.identity);
         var instantiated2 = Instantiate(_objectToSpawn, spawns[1],Quaternion.identity);
 
-        Scene.transform.position = instantiated.transform.position;
-        Scene.gameObject.SetActive(true);
-        _canvasObject.gameObject.SetActive(true);
-        _canvasObject.text = instantiated.transform.position + " " + instantiated2.transform.position; 
+        //_canvasObject.gameObject.SetActive(true);
+        //_canvasObject.text = instantiated.transform.position + " " + instantiated2.transform.position; 
     }
+
 }
