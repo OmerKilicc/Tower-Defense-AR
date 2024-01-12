@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BiaxScene.unity
     guid: 53ae286128eeddd43b3b2bf1733fb686
+  - enabled: 1
+    path: Assets/Scenes/BiaxScene 1.unity
+    guid: cdb4f6ca9a26e5e40b2d3823f296c8bc
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}

@@ -114,7 +114,7 @@ public class ARManager : MonoBehaviour
         Instantiate(PlacementController.Instance.PointAtTheClosest,closestVertex, Quaternion.identity);
         Instantiate(PlacementController.Instance.PointAtTheFurthest,furthestVertex, Quaternion.identity);
 
-        return new List<Vector3> {closestVertex,furthestVertex};
+        return new List<Vector3> {pointAtTheEdge,furthestVertex};
     }
 
     private bool HasSizeExceededMaxLimit => _currentPlaneSize >= MaxPlaneSize;

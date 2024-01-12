@@ -27,7 +27,8 @@ public class PlacementController : MonoBehaviour
     public GameObject PointAtTheClosest;
     public GameObject PointAtTheFurthest;
     public GameObject PointAtEveryVertex;
-    
+
+    public GameObject Scene;
 
     #endregion
 
@@ -73,6 +74,7 @@ public class PlacementController : MonoBehaviour
         return false;
     }
 
+
     bool TryGetTouchPosition(out Vector2 touchPosition) 
     {
         if(Input.touchCount  > 0) 
@@ -87,9 +89,13 @@ public class PlacementController : MonoBehaviour
     void SpawnHeadquarterAndSoldierSpawn() 
     {
         var plane = ARManager.Instance.TryGetBiggestARPlane();
+      
         var spawns = ARManager.Instance.TryGetPlaneEdges(plane);
         var instantiated = Instantiate(_objectToSpawn, spawns[0],Quaternion.identity);
         var instantiated2 = Instantiate(_objectToSpawn, spawns[1],Quaternion.identity);
+
+        Scene.transform.position = instantiated.transform.position;
+        Scene.gameObject.SetActive(true);
         _canvasObject.gameObject.SetActive(true);
         _canvasObject.text = instantiated.transform.position + " " + instantiated2.transform.position; 
     }
