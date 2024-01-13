@@ -98,7 +98,7 @@ public class PlacementController : MonoBehaviour
         return false;
     }
 
-    public void ReplaceGameSceneWithTouchPosition(Vector2 touchPosition) 
+    public void ReplaceGameSceneWithTouchPosition(Vector2 touchPosition, RaycastHit? hitInfo) 
     {
         _canvasObject.text = "EventTriggered";
         if (Instance._arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))

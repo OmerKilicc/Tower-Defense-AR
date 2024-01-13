@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4339336320746411604}
   - component: {fileID: 5432286330559466913}
   - component: {fileID: 7530449355391928124}
+  - component: {fileID: -388340196537228083}
   m_Layer: 0
   m_Name: Tile_Base
   m_TagString: Untagged
@@ -47,7 +48,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5be0db2ed82bef44b547960e2f69fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 0}
+  towerPrefab: {fileID: 7482389067817698191, guid: a3c93a473d15faa4397378632ef400b2,
+    type: 3}
   isPlacable: 1
 --- !u!65 &7530449355391928124
 BoxCollider:
@@ -70,6 +72,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 1, z: 10}
   m_Center: {x: 0, y: -0.5, z: 0}
+--- !u!114 &-388340196537228083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6400912410448642553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e14f7f45687914081c5303ae5cfb8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 75
 --- !u!1 &8485648907274622037
 GameObject:
   m_ObjectHideFlags: 0
