@@ -10,16 +10,32 @@ public class ObjectPooler : MonoBehaviour
 
 	GameObject[] pool;
 
-	void Awake()
+
+	private void OnEnable()
 	{
-		PopulatePool(enemyPrefab);
-		//TODO: Populate the pool with bullets
+		GameManager.OnGameStateChanged += HandleGameStates;
 	}
 
-	void Start()
+
+	private void OnDisable()
 	{
-		StartCoroutine(SpawnObject(enemyPrefab));
+		GameManager.OnGameStateChanged -= HandleGameStates;
 	}
+
+	private void HandleGameStates(GameManager.GameState obj)
+	{
+		if(obj == GameManager.GameState.Playing) 
+		{
+			PopulatePool(enemyPrefab);
+			StartCoroutine(SpawnObject(enemyPrefab));
+		}
+
+		else
+		{
+			StopCoroutine(SpawnObject(enemyPrefab));
+		}
+	}
+
 
 	void PopulatePool(GameObject prefabToPopulate)
 	{

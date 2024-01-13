@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5be0db2ed82bef44b547960e2f69fbe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 0}
   isPlacable: 1
 --- !u!65 &7530449355391928124
 BoxCollider:
@@ -163,7 +164,6 @@ GameObject:
   - component: {fileID: 2866357965822574366}
   - component: {fileID: 6269947392204543901}
   - component: {fileID: 2102145978516996565}
-  - component: {fileID: 7026659666706011026}
   m_Layer: 0
   m_Name: Coordinates Text
   m_TagString: Untagged
@@ -324,15 +324,3 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 6269947392204543901}
   m_maskType: 0
---- !u!114 &7026659666706011026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9054121310599520165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da570d3d81926a49ac48bc8cf3dfb4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
