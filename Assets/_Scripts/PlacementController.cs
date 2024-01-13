@@ -105,7 +105,8 @@ public class PlacementController : MonoBehaviour
         {
             _canvasObject.text = "ReplacedScene";
             var hitPose = hits[0].pose;
-            _gameScene.transform.position = hitPose.position;
+            var positionOffset = new Vector3(0, 0.01f, 0);
+            _gameScene.transform.position = hitPose.position + positionOffset;
             _gameScene.SetActive(true);
         }
     }

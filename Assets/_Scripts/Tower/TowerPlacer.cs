@@ -5,7 +5,7 @@ using UnityEngine;
 public class TowerPlacer : MonoBehaviour
 {
 	[SerializeField] int cost = 75;
-	GameManager.GameState gameState;
+	readonly GameManager.GameState gameState;
 	public bool CreateTower(GameObject tower, Vector3 position)
 	{
 		MoneyHandler bank = FindObjectOfType<MoneyHandler>();
