@@ -18,6 +18,11 @@ public class TowerMainScript : MonoBehaviour
     {
         target = ChooseTarget();
 
+        if (target != null && !target.gameObject.activeInHierarchy)
+        {
+            target = null; // þu anki target inactive ise targeti sýfýrla
+        }
+
         if (target != null)
         {
             currentCooldown -= Time.deltaTime;
@@ -65,6 +70,8 @@ public class TowerMainScript : MonoBehaviour
 
     Transform ChooseTarget()
     {
+        enemiesInRange.RemoveAll(enemy => enemy.gameObject.activeInHierarchy == false);
+
         if (enemiesInRange.Count > 0)
         {
             return enemiesInRange[0]; //FIFO usülü düþman seçimi
