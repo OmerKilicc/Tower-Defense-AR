@@ -5,7 +5,7 @@ using UnityEngine;
 public class TowerPlacer : MonoBehaviour
 {
 	[SerializeField] int cost = 75;
-
+	GameManager.GameState gameState;
 	public bool CreateTower(GameObject tower, Vector3 position)
 	{
 		MoneyHandler bank = FindObjectOfType<MoneyHandler>();
@@ -15,7 +15,8 @@ public class TowerPlacer : MonoBehaviour
 			return false;
 		}
 
-		if (bank.CurrentBalance >= cost)
+
+		if (bank.CurrentBalance >= cost && gameState == GameManager.GameState.Playing)
 		{
 			Instantiate(tower, position, Quaternion.identity);
 			bank.Withdraw(cost);
