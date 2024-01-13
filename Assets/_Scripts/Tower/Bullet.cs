@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     [SerializeField] private int bulletDamage = 25;
     private Vector3 targetPosition;
 
-	public float speed = 50f;
+	public float speed = 0.4f;
 
 	EnemyData enemyData;
 
