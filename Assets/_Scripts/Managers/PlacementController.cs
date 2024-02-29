@@ -77,8 +77,6 @@ public class PlacementController : MonoBehaviour
         SpawnHeadquarterAndSoldierSpawn();
     }
 
-    
-
     void Update()
     {
         if (!TryGetTouchPosition(out Vector2 touchPosition))

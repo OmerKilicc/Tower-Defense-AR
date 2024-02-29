@@ -8,8 +8,8 @@ public class TowerPlacer : MonoBehaviour
 {
 	[SerializeField] GameObject towerPrefab;
 	Waypoint waypoint;
-	MoneyHandler bank;
 
+	[SerializeField] PlayerDataSO _playerData;
 	[SerializeField] int cost = 75;
 	bool isGamePlaying = false;
 
@@ -28,7 +28,6 @@ public class TowerPlacer : MonoBehaviour
 	private void Start()
 	{
 		waypoint = GetComponent<Waypoint>();
-		bank = FindObjectOfType<MoneyHandler>();
 	}
 
 	private void IsGamePlaying(GameManager.GameState obj)
@@ -39,7 +38,7 @@ public class TowerPlacer : MonoBehaviour
 
 	private bool DoesHaveEnoughMoney()
 	{
-		if (bank.CurrentBalance >= cost)
+		if (_playerData.CurrentMoney >= cost)
 			return true;
 		else
 			return false;
@@ -53,7 +52,7 @@ public class TowerPlacer : MonoBehaviour
 			return;
 
 		Instantiate(towerPrefab, transform.position, Quaternion.identity);
-		bank.Withdraw(cost);
+		_playerData.CurrentMoney -= cost;
 		waypoint.IsPlacable = false;
 		
 	}

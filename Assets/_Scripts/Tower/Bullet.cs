@@ -1,42 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private int bulletDamage = 25;
-    private Vector3 targetPosition;
+    [SerializeField] private int _bulletDamage = 25;
+    private Vector3 _targetPosition;
 
-	public float speed = 0.4f;
-
-	EnemyData enemyData;
-
+	private float _speed = 0.4f;
+    public static event Action<int> OnEnemyDamaged;
 
 	//towerdan çaðýrýlan fonksiyon
 	public void Initialize(Vector3 targetPos)
     {
-        targetPosition = targetPos;
+        _targetPosition = targetPos;
     }
 
     void Update()
     {
         //mermi hareketi
-        float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+        float step = _speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, _targetPosition, step);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            enemyData = other.GetComponent<EnemyData>();
-            enemyData.Health -= bulletDamage;
-            
-            if(enemyData.Health <= 0) 
-            {
-                other.gameObject.SetActive(false);
-                enemyData.RewardGold();
-            }
+            OnEnemyDamaged.Invoke(_bulletDamage);
 
 			//TODO : make bullets inactive by adding them to objectpool
 			Destroy(gameObject);
