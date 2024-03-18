@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IProjectile
 {
     [SerializeField] private int _bulletDamage = 25;
     private Vector3 _targetPosition;
