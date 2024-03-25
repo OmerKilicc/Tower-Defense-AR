@@ -11,9 +11,9 @@ public class PoolingHandler : MonoBehaviour
 	private void Start()
 	{
 		// Register pools for BulletTower, BasicEnemy, and Bullet
-		GameObjectFactory.RegisterPool<TowerMainScript>(10, bulletTowerPrefab);
-		GameObjectFactory.RegisterPool<BasicEnemy>(10, basicEnemyPrefab);
-		GameObjectFactory.RegisterPool<Bullet>(20, bulletPrefab);
+		ObjectFactory.RegisterPool<TowerMainScript>(10, bulletTowerPrefab);
+		ObjectFactory.RegisterPool<BasicEnemy>(10, basicEnemyPrefab);
+		ObjectFactory.RegisterPool<Bullet>(20, bulletPrefab);
 
 		/*Examples
 		 * 
