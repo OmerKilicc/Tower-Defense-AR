@@ -28,6 +28,8 @@ public class SoundManager : MonoBehaviour
 
     [SerializeField]
     private AudioClip[] _audClips;
+    [SerializeField]
+    private AudioClip _musicClip;
 
     public enum Sounds 
     {
@@ -43,6 +45,8 @@ public class SoundManager : MonoBehaviour
         GameObject musicPlayer = new GameObject("MusicPlayer");
         _musicSource = musicPlayer.AddComponent<AudioSource>();
         _musicSource.loop = true;
+        _musicSource.clip = _musicClip;
+        _musicSource.Play();
         GameObject sfxPlayer = new GameObject("SFXPlayer");
         _sfxSource = sfxPlayer.AddComponent<AudioSource>();
     }
