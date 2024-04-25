@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -57,6 +58,7 @@ public class GameManager : MonoBehaviour
     public void StartPlaying() 
     {
         UpdateGameState(GameState.Playing);
+        SoundManager.Instance.PlayOneShot(SoundManager.Sounds.ButtonClick);
     }
 
     public enum GameState 
@@ -67,5 +69,10 @@ public class GameManager : MonoBehaviour
         Lose,
         Win
     
+    }
+
+    public void RestartGame() 
+    {
+        SceneManager.LoadScene(0);
     }
 }

@@ -107,6 +107,7 @@ namespace Enemy
 			//TODO: invoke an event to alert the pooler to take this object to unactive state
 			_enemyData.CurrentHealth = 0;
 			gameObject.SetActive(false);
+			SoundManager.Instance.PlayOneShot(SoundManager.Sounds.EnemyDeath);
 		}
 	}
 

@@ -95,5 +95,7 @@ public class TowerMainScript : MonoBehaviour
 
         //cooldown
         isShooting = false;
+
+        SoundManager.Instance.PlayOneShot(SoundManager.Sounds.PistolFire);
     }
 }
