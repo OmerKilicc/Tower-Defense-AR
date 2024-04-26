@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Tower
   - Path
+  - Mortar
   layers:
   - Default
   - TransparentFX
