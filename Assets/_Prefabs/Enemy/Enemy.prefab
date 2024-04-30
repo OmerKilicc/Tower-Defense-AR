@@ -98,7 +98,7 @@ MonoBehaviour:
   _enemyData: {fileID: 11400000, guid: 19cb8b502f93ce046861d3dcea925c1f, type: 2}
   _playerData: {fileID: 11400000, guid: 38935801f339b784e9e5077df23f36ec, type: 2}
   path: []
-  speed: 1
+  speed: 0.65
 --- !u!1 &8547470309626299413
 GameObject:
   m_ObjectHideFlags: 0
