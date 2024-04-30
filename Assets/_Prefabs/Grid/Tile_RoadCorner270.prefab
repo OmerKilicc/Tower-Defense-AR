@@ -88,6 +88,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tile_RoadCorner270
       objectReference: {fileID: 0}
+    - target: {fileID: 7918548889508443184, guid: 6ccf3c15fa6f060489d20fa795c1a587,
+        type: 3}
+      propertyPath: towerPrefab
+      value: 
+      objectReference: {fileID: 7482389067817698191, guid: a3c93a473d15faa4397378632ef400b2,
+        type: 3}
+    - target: {fileID: 7918548889508443184, guid: 6ccf3c15fa6f060489d20fa795c1a587,
+        type: 3}
+      propertyPath: mortarPrefab
+      value: 
+      objectReference: {fileID: 6374694277643781655, guid: 385ab77912846194f98386efa6ed3250,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

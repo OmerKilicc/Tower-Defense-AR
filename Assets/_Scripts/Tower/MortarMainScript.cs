@@ -8,10 +8,10 @@ public class MortarMainScript : MonoBehaviour
     public Transform ballPrefab;
     public Transform shootingPoint;
     public Transform target;
-    public float fireRate = 0.75f; //saniye baþýna atýlacak mermi
+    public float fireRate = 0.5f; //saniye baþýna atýlacak mermi
     private bool isShooting = false;
 
-    public float shootCooldown = 1.5f; //mermiler arasý beklenecek süre
+    public float shootCooldown = 2f; //mermiler arasý beklenecek süre
     private float currentCooldown = 0.0f; //mermiler arasý þu an geçen süre
 
     void Update()

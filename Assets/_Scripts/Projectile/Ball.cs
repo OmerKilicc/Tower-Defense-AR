@@ -54,7 +54,7 @@ public class Ball : MonoBehaviour, IProjectile
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            OnEnemyDamaged?.Invoke(_bulletDamage);
+            OnEnemyDamaged.Invoke(_bulletDamage);
             Destroy(gameObject);  // Destroys this projectile
         }
     }

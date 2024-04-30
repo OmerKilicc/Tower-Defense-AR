@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 769343299044674184}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 12.67, y: 0.23, z: 16.95}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 442.60156, y: 442.60156, z: 442.60156}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -118,6 +118,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 947a0a9c4f225fb4d8b7559b6d6fa7fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 136956315570458674}
-  target: {fileID: 0}
-  projectileSpeed: 30
+  _bulletDamage: 40

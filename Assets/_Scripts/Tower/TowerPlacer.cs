@@ -7,11 +7,14 @@ using UnityEngine.UIElements;
 public class TowerPlacer : MonoBehaviour
 {
 	[SerializeField] GameObject towerPrefab;
-	Waypoint waypoint;
+    [SerializeField] GameObject mortarPrefab;
+    Waypoint waypoint;
 
 	[SerializeField] PlayerDataSO _playerData;
 	[SerializeField] int cost = 75;
 	bool isGamePlaying = false;
+	bool isTowerSelected = true;
+	bool isMortarSelected = false;
 
 	private void OnEnable()
 	{
@@ -28,6 +31,20 @@ public class TowerPlacer : MonoBehaviour
 	private void Start()
 	{
 		waypoint = GetComponent<Waypoint>();
+	}
+
+	public void TowerSelected()
+	{
+		isMortarSelected = false;
+		isTowerSelected = true;
+		cost = 75;
+	}
+
+	public void MortarSelected()
+	{
+		isTowerSelected = false;
+		isMortarSelected = true;
+		cost = 100;
 	}
 
 	private void IsGamePlaying(GameManager.GameState obj)
@@ -50,9 +67,14 @@ public class TowerPlacer : MonoBehaviour
 
 		if (!isGamePlaying || touchedObject != gameObject || !waypoint.IsPlacable || !DoesHaveEnoughMoney())
 			return;
-
-		Instantiate(towerPrefab, transform.position, Quaternion.identity);
-		_playerData.CurrentMoney -= cost;
+		if (isTowerSelected) {
+			Instantiate(towerPrefab, transform.position, Quaternion.identity); 
+		}
+		else if (isMortarSelected)
+		{
+            Instantiate(mortarPrefab, transform.position, Quaternion.identity);
+        }
+        _playerData.CurrentMoney -= cost;
 		waypoint.IsPlacable = false;
 		
 	}
