@@ -34,3 +34,5 @@ public class GameTile : MonoBehaviour
 	//We are going to establish theese relationships in GameBoard
 
 
+}
+
