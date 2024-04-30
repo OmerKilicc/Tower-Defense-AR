@@ -18,14 +18,14 @@ public class PoolingHandler : MonoBehaviour
 		/*Examples
 		 * 
 		// Spawn some objects
-		BulletTower tower1 = GameObjectFactory.CreateObject<BulletTower>();
-		BasicEnemy enemy1 = GameObjectFactory.CreateObject<BasicEnemy>();
-		Bullet bullet1 = GameObjectFactory.CreateObject<Bullet>();
+		BulletTower tower1 = ObjectFactory.CreateObject<BulletTower>();
+		BasicEnemy enemy1 = ObjectFactory.CreateObject<BasicEnemy>();
+		Bullet bullet1 = ObjectFactory.CreateObject<Bullet>();
 
 		// Return objects to the pool when done
-		GameObjectFactory.ReturnObject(tower1);
-		GameObjectFactory.ReturnObject(enemy1);
-		GameObjectFactory.ReturnObject(bullet1);
+		ObjectFactory.ReturnObject(tower1);
+		ObjectFactory.ReturnObject(enemy1);
+		ObjectFactory.ReturnObject(bullet1);
 		*/
 	}
 }

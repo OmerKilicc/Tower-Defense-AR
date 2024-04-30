@@ -10,10 +10,11 @@ public static class ObjectFactory
 
 	public static void RegisterPool<T>(int maxSize, T prefab) where T : MonoBehaviour
 	{
-		//Poolda T tipinde bir anahtar varsa
+		//Poolda T tipinde bir anahtar  yoksa
 		if (!pools.ContainsKey(typeof(T)))
 		{
-			//o keye bir object pool ata,yani aslýnda key olarak poolun tipini, value olarak direkt poolun kendisin saklýyoruz
+			//o keye bir object pool ata,yani eger mesela bir tower tipinde pool yoksa
+			//tower tipi için bir pool oluþtur diyore
 			pools[typeof(T)] = new ObjectPool<T>(maxSize, prefab);
 		}
 	}
@@ -24,7 +25,7 @@ public static class ObjectFactory
 		//eger poolda T tipinde key varsa
 		if (pools.ContainsKey(typeof(T)))
 		{
-			//o tipe ait objeyi ObjectPool<T> olarak döndür
+			//o tipe ait object poolun içinden o objeyi ver
 			return (pools[typeof(T)] as ObjectPool<T>).GetObject();
 		}
 		else
@@ -35,8 +36,10 @@ public static class ObjectFactory
 
 	public static void ReturnObject<T>(T obj) where T : MonoBehaviour
 	{
+		//eger poolda T tipinde key varsa
 		if (pools.ContainsKey(typeof(T)))
 		{
+			//o tipe ait object poolun içine o objeyi uyut
 			(pools[typeof(T)] as ObjectPool<T>).ReturnObject(obj);
 		}
 		else
