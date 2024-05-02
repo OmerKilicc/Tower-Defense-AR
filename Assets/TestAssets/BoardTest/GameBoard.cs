@@ -1,4 +1,4 @@
-using System.Collections;
+
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,6 +11,8 @@ public class GameBoard : MonoBehaviour
 	GameTile _tilePrefab = default;
 
 	Vector2Int _size;
+
+	Queue<GameTile> _searchFrontier = new Queue<GameTile>();
 
 	// keep track of the tiles that have been initilized
 	GameTile[] _tiles;
@@ -44,7 +46,58 @@ public class GameBoard : MonoBehaviour
 				//if not in 0 can create neighbor bonds
 				if (x > 0) { GameTile.MakeEastWestNeighbors(tile, _tiles[i - 1]); }
 				if (y > 0) { GameTile.MakeNorthSouthNeighbors(tile, _tiles[i - size.x]); }
+
+				tile.IsAlternative = (x & 1) == 0;
+				if ((y & 1) == 0)
+					tile.IsAlternative = !tile.IsAlternative;
+
 			}
+		}
+
+		FindPaths();
+	}
+
+	private void FindPaths()
+	{
+		// Reset all the paths found
+		foreach (GameTile tile in _tiles)
+		{
+			tile.ClearPath();
+		}
+
+		// Start adding to queue with destination tile
+		_tiles[_tiles.Length / 2].BecomeDestination();
+		_searchFrontier.Enqueue(_tiles[_tiles.Length / 2]);
+
+		// For all the frontier tiles, search neighbors for path, make them frontiers.
+		while (_searchFrontier.Count > 0)
+		{
+			GameTile tile = _searchFrontier.Dequeue();
+			if (tile != null)
+			{
+				if (tile.IsAlternative)
+				{
+					_searchFrontier.Enqueue(tile.GrowPathNorth());
+					_searchFrontier.Enqueue(tile.GrowPathSouth());
+
+					_searchFrontier.Enqueue(tile.GrowPathEast());
+					_searchFrontier.Enqueue(tile.GrowPathWest());
+				}
+				else
+				{
+					_searchFrontier.Enqueue(tile.GrowPathWest());
+					_searchFrontier.Enqueue(tile.GrowPathEast());
+
+					_searchFrontier.Enqueue(tile.GrowPathSouth());
+					_searchFrontier.Enqueue(tile.GrowPathNorth());
+				}
+
+			}
+		}
+
+		foreach (GameTile tile in _tiles)
+		{
+			tile.ShowPath();
 		}
 	}
 }
