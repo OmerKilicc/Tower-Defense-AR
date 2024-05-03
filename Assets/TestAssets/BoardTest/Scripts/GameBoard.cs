@@ -1,26 +1,31 @@
 
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class GameBoard : MonoBehaviour
 {
+	Vector2Int _size;
+
 	[SerializeField]
 	Transform _ground = default;
 
 	[SerializeField]
 	GameTile _tilePrefab = default;
 
-	Vector2Int _size;
-
-	Queue<GameTile> _searchFrontier = new Queue<GameTile>();
-
 	// keep track of the tiles that have been initilized
 	GameTile[] _tiles;
 
-	public void Initialize(Vector2Int size)
+	Queue<GameTile> _searchFrontier = new Queue<GameTile>();
+
+	GameTileContentFactory _contentFactory;
+
+	public void Initialize(Vector2Int size,
+						GameTileContentFactory contentFactory)
 	{
 		//Size given by player will be applied to this object with localScale func
 		this._size = size;
+		this._contentFactory = contentFactory;
 		_ground.localScale = new Vector3(size.x, size.y, 1f);
 
 		/*
@@ -51,23 +56,36 @@ public class GameBoard : MonoBehaviour
 				if ((y & 1) == 0)
 					tile.IsAlternative = !tile.IsAlternative;
 
+				// Give all tiles an empty content instance.
+				tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+
 			}
 		}
 
-		FindPaths();
+		ToggleDestinations(_tiles[_tiles.Length / 2]);
 	}
 
-	private void FindPaths()
+	private bool FindPaths()
 	{
 		// Reset all the paths found
 		foreach (GameTile tile in _tiles)
 		{
-			tile.ClearPath();
+			if (tile.Content.Type == GameTileContentType.Destination)
+			{
+				tile.BecomeDestination();
+				_searchFrontier.Enqueue(tile);
+			}
+			else
+			{
+				tile.ClearPath();
+			}
 		}
 
-		// Start adding to queue with destination tile
-		_tiles[_tiles.Length / 2].BecomeDestination();
-		_searchFrontier.Enqueue(_tiles[_tiles.Length / 2]);
+		if (_searchFrontier.Count == 0)
+		{
+			return false;
+		}
+
 
 		// For all the frontier tiles, search neighbors for path, make them frontiers.
 		while (_searchFrontier.Count > 0)
@@ -98,6 +116,48 @@ public class GameBoard : MonoBehaviour
 		foreach (GameTile tile in _tiles)
 		{
 			tile.ShowPath();
+		}
+
+		return true;
+	}
+
+	// Casts a ray gets the info checks if the tile is in bounds of
+	// board, if so returns it
+	public GameTile GetTile(Ray ray)
+	{
+
+		if (Physics.Raycast(ray, out RaycastHit hit))
+		{
+			int x = (int)(hit.point.x + _size.x * 0.5f);
+			int y = (int)(hit.point.y + _size.y * 0.5f);
+			if (x >= 0 && x < _size.x && y >= 0 && y < _size.y)
+			{
+				return _tiles[x + y * _size.x];
+			}
+		}
+
+		return null;
+	}
+
+	// Make it destination if its empty, make it empty if its destination
+	// FindPaths again in both occasions
+	public void ToggleDestinations(GameTile tile)
+	{
+		if (tile.Content.Type == GameTileContentType.Destination)
+		{
+			tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+
+			// If its the only destination than make it untoggleable
+			if (!FindPaths())
+			{
+				tile.Content = _contentFactory.Get(GameTileContentType.Destination);
+				FindPaths();
+			}
+		}
+		else
+		{
+			tile.Content = _contentFactory.Get(GameTileContentType.Destination);
+			FindPaths();
 		}
 	}
 }

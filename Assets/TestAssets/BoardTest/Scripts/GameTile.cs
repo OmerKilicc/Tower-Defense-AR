@@ -8,17 +8,36 @@ public class GameTile : MonoBehaviour
 	[SerializeField]
 	Transform _arrow = default;
 
-	//Directions of the tiles and next tile
-	GameTile north, east, south, west, nextOnPath;
-
 	static Quaternion
-		northRotation = Quaternion.Euler(90f, 0f, 0f),
-		eastRotation = Quaternion.Euler(90f, 90f, 0f),
-		southRotation = Quaternion.Euler(90f, 180f, 0f),
-		westRotation = Quaternion.Euler(90f, 270f, 0f);
+	northRotation = Quaternion.Euler(90f, 0f, 0f),
+	eastRotation = Quaternion.Euler(90f, 90f, 0f),
+	southRotation = Quaternion.Euler(90f, 180f, 0f),
+	westRotation = Quaternion.Euler(90f, 270f, 0f);
 
 	// distance to finish
 	int distance;
+
+	//Directions of the tiles and next tile
+	GameTile north, east, south, west, nextOnPath;
+
+	GameTileContent _content;
+	public GameTileContent Content
+	{
+		get => _content;
+		set
+		{
+			Debug.Assert(value != null, "Null assigned to content!");
+			// Recycles previous content, if any
+			if (_content != null)
+			{
+				_content.Recycle();
+			}
+
+			// set and positions the new content
+			_content = value;
+			_content.transform.localPosition = transform.localPosition;
+		}
+	}
 
 	// Let's have 2 squares, let's call the left one the first and the right one the second.
 	// If the first square is to the east of the second, it becomes the second, and if the second square is to the west of the first, it becomes the first
@@ -79,7 +98,7 @@ public class GameTile : MonoBehaviour
 
 	public void ShowPath()
 	{
-		if(distance == 0)
+		if (distance == 0)
 		{
 			_arrow.gameObject.SetActive(false);
 			return;
@@ -91,7 +110,6 @@ public class GameTile : MonoBehaviour
 			nextOnPath == east ? eastRotation :
 			nextOnPath == south ? southRotation :
 			westRotation;
-			
 	}
 
 	public bool IsAlternative { get; set; }
