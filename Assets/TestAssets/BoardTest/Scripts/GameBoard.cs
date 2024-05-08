@@ -20,6 +20,30 @@ public class GameBoard : MonoBehaviour
 
 	GameTileContentFactory _contentFactory;
 
+	bool _showPaths;
+	public bool ShowPaths 
+	{
+		get => _showPaths;
+		set 
+		{ 
+			_showPaths = value;
+			if(_showPaths)
+			{
+				foreach(GameTile tile in _tiles)
+				{
+					tile.ShowPath();
+				}
+			}
+			else
+			{
+				foreach (GameTile tile in _tiles)
+				{
+					tile.HidePath();
+				}
+			}
+		} 
+	}
+
 	public void Initialize(Vector2Int size,
 						GameTileContentFactory contentFactory)
 	{
@@ -62,7 +86,7 @@ public class GameBoard : MonoBehaviour
 			}
 		}
 
-		ToggleDestinations(_tiles[_tiles.Length / 2]);
+		ToggleDestination(_tiles[_tiles.Length / 2]);
 	}
 
 	private bool FindPaths()
@@ -115,7 +139,18 @@ public class GameBoard : MonoBehaviour
 
 		foreach (GameTile tile in _tiles)
 		{
-			tile.ShowPath();
+			if (!tile.HasPath)
+			{
+				return false;
+			}
+		}
+
+		if (_showPaths)
+		{
+			foreach(GameTile tile in _tiles)
+			{
+				tile.ShowPath();
+			}
 		}
 
 		return true;
@@ -141,7 +176,7 @@ public class GameBoard : MonoBehaviour
 
 	// Make it destination if its empty, make it empty if its destination
 	// FindPaths again in both occasions
-	public void ToggleDestinations(GameTile tile)
+	public void ToggleDestination(GameTile tile)
 	{
 		if (tile.Content.Type == GameTileContentType.Destination)
 		{
@@ -154,10 +189,31 @@ public class GameBoard : MonoBehaviour
 				FindPaths();
 			}
 		}
-		else
+		else if (tile.Content.Type == GameTileContentType.Empty)
 		{
 			tile.Content = _contentFactory.Get(GameTileContentType.Destination);
 			FindPaths();
+		}
+	}
+
+
+	//Toggle between wall and empty
+	public void ToggleWall(GameTile tile)
+	{
+		if (tile.Content.Type == GameTileContentType.Wall)
+		{
+			tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+			FindPaths();
+		}
+		else if (tile.Content.Type == GameTileContentType.Empty)
+		{
+			tile.Content = _contentFactory.Get(GameTileContentType.Wall);
+			if (!FindPaths())
+			{
+				tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+				FindPaths();
+
+			}
 		}
 	}
 }
