@@ -20,6 +20,7 @@ public class BoardManager : MonoBehaviour
 	private void Awake()
 	{
 		_board.Initialize(_boardSize, _tileContentFactory);
+		_board.ShowGrid = true;
 	}
 
 	private void Update()
@@ -36,6 +37,12 @@ public class BoardManager : MonoBehaviour
 		if(Input.GetKeyDown(KeyCode.V))
 		{
 			_board.ShowPaths = !_board.ShowPaths;
+		}
+
+
+		if (Input.GetKeyDown(KeyCode.G))
+		{
+			_board.ShowGrid = !_board.ShowGrid;
 		}
 	}
 

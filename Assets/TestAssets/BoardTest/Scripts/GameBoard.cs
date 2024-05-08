@@ -5,13 +5,16 @@ using UnityEngine;
 
 public class GameBoard : MonoBehaviour
 {
-	Vector2Int _size;
+	[SerializeField]
+	Texture2D _gridTexture;
 
 	[SerializeField]
 	Transform _ground = default;
 
 	[SerializeField]
 	GameTile _tilePrefab = default;
+
+	Vector2Int _size;
 
 	// keep track of the tiles that have been initilized
 	GameTile[] _tiles;
@@ -21,15 +24,15 @@ public class GameBoard : MonoBehaviour
 	GameTileContentFactory _contentFactory;
 
 	bool _showPaths;
-	public bool ShowPaths 
+	public bool ShowPaths
 	{
 		get => _showPaths;
-		set 
-		{ 
+		set
+		{
 			_showPaths = value;
-			if(_showPaths)
+			if (_showPaths)
 			{
-				foreach(GameTile tile in _tiles)
+				foreach (GameTile tile in _tiles)
 				{
 					tile.ShowPath();
 				}
@@ -41,9 +44,28 @@ public class GameBoard : MonoBehaviour
 					tile.HidePath();
 				}
 			}
-		} 
+		}
 	}
 
+	bool _showGrid;
+	public bool ShowGrid
+	{
+		get => _showGrid;
+		set
+		{
+			_showGrid = value;
+			Material m = _ground.GetComponent<MeshRenderer>().material;
+			if (_showGrid)
+			{
+				m.mainTexture = _gridTexture;
+				m.SetTextureScale("_MainTex", _size);
+			}
+			else
+			{
+				m.mainTexture = null;
+			}
+		}
+	}
 	public void Initialize(Vector2Int size,
 						GameTileContentFactory contentFactory)
 	{
@@ -147,7 +169,7 @@ public class GameBoard : MonoBehaviour
 
 		if (_showPaths)
 		{
-			foreach(GameTile tile in _tiles)
+			foreach (GameTile tile in _tiles)
 			{
 				tile.ShowPath();
 			}
