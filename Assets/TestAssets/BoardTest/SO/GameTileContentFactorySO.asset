@@ -12,6 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd869b6b9ee7824a9407c2a04cfb982, type: 3}
   m_Name: GameTileContentFactorySO
   m_EditorClassIdentifier: 
+  _spawnPointPrefab: {fileID: 6111038858678744444, guid: f9b69876ad0f74d4dacfc449aea267db,
+    type: 3}
   _destinationPrefab: {fileID: 6111038858678744444, guid: c2c7fc8d65e12124b9058069bf033475,
     type: 3}
   _emptyPrefab: {fileID: 8961475678765194385, guid: f16ed29b350963c478002d474e915cde,

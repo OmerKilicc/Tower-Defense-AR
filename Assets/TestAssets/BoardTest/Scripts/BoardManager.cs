@@ -27,11 +27,11 @@ public class BoardManager : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			HandleWallToggle();
+			HandleTouch();
 		}
 		else if (Input.GetMouseButtonDown(1))
 		{
-			HandleDestinationToggle();
+			HandleAlternativeTouch();
 		}
 
 		if(Input.GetKeyDown(KeyCode.V))
@@ -46,7 +46,7 @@ public class BoardManager : MonoBehaviour
 		}
 	}
 
-	private void HandleWallToggle()
+	private void HandleTouch()
 	{
 		GameTile tile = _board.GetTile(TouchRay);
 		if (tile != null)
@@ -55,7 +55,7 @@ public class BoardManager : MonoBehaviour
 		}
 	}
 
-	private void HandleDestinationToggle()
+	private void HandleAlternativeTouch()
 	{
 		// Get a tile from the board, and if we got one
 		// setting its content to destination, by getting one from the factory
@@ -63,7 +63,14 @@ public class BoardManager : MonoBehaviour
 		GameTile tile = _board.GetTile(TouchRay);
 		if (tile != null)
 		{
-			_board.ToggleDestination(tile);
+			if (Input.GetKey(KeyCode.LeftShift))
+			{
+				_board.ToggleDestination(tile);
+			}
+			else
+			{
+				_board.ToggleSpawnPoint(tile);
+			}
 		}
 	}
 

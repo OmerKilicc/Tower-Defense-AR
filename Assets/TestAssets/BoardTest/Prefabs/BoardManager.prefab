@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _boardSize: {x: 11, y: 11}
   _board: {fileID: 0}
+  _tileContentFactory: {fileID: 11400000, guid: 71794ec5a8f781541aeb3bd43a3a89ff,
+    type: 2}

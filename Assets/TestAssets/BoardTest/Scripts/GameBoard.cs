@@ -14,14 +14,17 @@ public class GameBoard : MonoBehaviour
 	[SerializeField]
 	GameTile _tilePrefab = default;
 
-	Vector2Int _size;
-
-	// keep track of the tiles that have been initilized
 	GameTile[] _tiles;
 
 	Queue<GameTile> _searchFrontier = new Queue<GameTile>();
+	List<GameTile> _spawnPoints = new List<GameTile>();
 
 	GameTileContentFactory _contentFactory;
+
+	Vector2Int _size;
+	public int SpawnPointCount => _spawnPoints.Count;
+
+
 
 	bool _showPaths;
 	public bool ShowPaths
@@ -66,8 +69,7 @@ public class GameBoard : MonoBehaviour
 			}
 		}
 	}
-	public void Initialize(Vector2Int size,
-						GameTileContentFactory contentFactory)
+	public void Initialize(Vector2Int size, GameTileContentFactory contentFactory)
 	{
 		//Size given by player will be applied to this object with localScale func
 		this._size = size;
@@ -109,6 +111,7 @@ public class GameBoard : MonoBehaviour
 		}
 
 		ToggleDestination(_tiles[_tiles.Length / 2]);
+		ToggleSpawnPoint(_tiles[0]);
 	}
 
 	private bool FindPaths()
@@ -238,4 +241,29 @@ public class GameBoard : MonoBehaviour
 			}
 		}
 	}
+
+	// Does not affect the pathfinding so we do not need to find paths again
+	public void ToggleSpawnPoint(GameTile tile)
+	{
+		if (tile.Content.Type == GameTileContentType.SpawnPoint)
+		{
+			if (_spawnPoints.Count > 1)
+			{
+				_spawnPoints.Remove(tile);
+				tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+			}
+		}
+		else if (tile.Content.Type == GameTileContentType.Empty)
+		{
+			tile.Content = _contentFactory.Get(GameTileContentType.SpawnPoint);
+			_spawnPoints.Add(tile);
+		}
+	}
+
+	public GameTile GetSpawnPoint(int index)
+	{
+		return _spawnPoints[index];
+	}
+
 }
+
