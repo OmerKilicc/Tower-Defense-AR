@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Net.WebSockets;
 using UnityEngine;
 
 public class GameTile : MonoBehaviour
@@ -88,7 +85,10 @@ public class GameTile : MonoBehaviour
 
 		neighbor.distance = distance + 1;
 		neighbor.nextOnPath = this;
-		return neighbor;
+
+		//if the neighbor is wall dont grow the path to it
+		return
+			neighbor.Content.Type != GameTileContentType.Wall ? neighbor : null;
 	}
 
 	public GameTile GrowPathNorth() => GrowPathTo(north);
@@ -114,5 +114,9 @@ public class GameTile : MonoBehaviour
 
 	public bool IsAlternative { get; set; }
 
+	public void HidePath()
+	{
+		_arrow.gameObject.SetActive(false);
+	}
 }
 

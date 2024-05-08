@@ -314,13 +314,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1842065888}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.45267954, y: 0.009635343, z: -0.0048712464, w: 0.89160794}
-  m_LocalPosition: {x: 0.3810261, y: 7.7523265, z: -7.809334}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1001 &848563809282896094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -389,6 +389,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7485104921875683611, guid: 09b3f9e9b1d672746ad02a087bda487a,
+        type: 3}
+      propertyPath: _gridTexture
+      value: 
+      objectReference: {fileID: 2800000, guid: 71a99d64f9b4743439cd76f679098b88, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
