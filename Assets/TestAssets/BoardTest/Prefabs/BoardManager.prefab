@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _boardSize: {x: 11, y: 11}
-  _board: {fileID: 0}
+  _enemyFactory: {fileID: 11400000, guid: 76a4a8c3aa316644abab193fe8d266d4, type: 2}
+  _spawnSpeed: 1
+  _board: {fileID: 7485104921875683611, guid: 09b3f9e9b1d672746ad02a087bda487a, type: 3}
   _tileContentFactory: {fileID: 11400000, guid: 71794ec5a8f781541aeb3bd43a3a89ff,
     type: 2}

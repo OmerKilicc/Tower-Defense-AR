@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BoardManager : MonoBehaviour
@@ -10,12 +8,22 @@ public class BoardManager : MonoBehaviour
 	Vector2Int _boardSize = new Vector2Int(11, 11);
 
 	[SerializeField]
+	EnemyFactory _enemyFactory = default;
+
+	[SerializeField, Range(0.1f, 10f)]
+	float _spawnSpeed = 1f;
+
+	[SerializeField]
 	GameBoard _board = default;
 
 	[SerializeField]
 	GameTileContentFactory _tileContentFactory = default;
 
 	Ray TouchRay => Camera.main.ScreenPointToRay(Input.mousePosition);
+
+	float _spawnProgress;
+
+	EnemyCollection _enemies = new EnemyCollection();
 
 	private void Awake()
 	{
@@ -34,16 +42,32 @@ public class BoardManager : MonoBehaviour
 			HandleAlternativeTouch();
 		}
 
-		if(Input.GetKeyDown(KeyCode.V))
+		if (Input.GetKeyDown(KeyCode.V))
 		{
 			_board.ShowPaths = !_board.ShowPaths;
 		}
-
 
 		if (Input.GetKeyDown(KeyCode.G))
 		{
 			_board.ShowGrid = !_board.ShowGrid;
 		}
+
+		_spawnProgress += _spawnSpeed * Time.deltaTime;
+		while (_spawnProgress >= 1f)
+		{
+			_spawnProgress -= 1f;
+			SpawnEnemy();
+		}
+
+		_enemies.GameUpdate();
+	}
+
+	private void SpawnEnemy()
+	{
+		GameTile spawnPoint = _board.GetSpawnPoint(UnityEngine.Random.Range(0, _board.SpawnPointCount));
+		NewEnemy enemy = _enemyFactory.Get();
+		enemy.SpawnOn(spawnPoint);
+		_enemies.Add(enemy);
 	}
 
 	private void HandleTouch()

@@ -24,8 +24,6 @@ public class GameBoard : MonoBehaviour
 	Vector2Int _size;
 	public int SpawnPointCount => _spawnPoints.Count;
 
-
-
 	bool _showPaths;
 	public bool ShowPaths
 	{
@@ -189,7 +187,7 @@ public class GameBoard : MonoBehaviour
 		if (Physics.Raycast(ray, out RaycastHit hit))
 		{
 			int x = (int)(hit.point.x + _size.x * 0.5f);
-			int y = (int)(hit.point.y + _size.y * 0.5f);
+			int y = (int)(hit.point.z + _size.y * 0.5f);
 			if (x >= 0 && x < _size.x && y >= 0 && y < _size.y)
 			{
 				return _tiles[x + y * _size.x];
@@ -220,7 +218,6 @@ public class GameBoard : MonoBehaviour
 			FindPaths();
 		}
 	}
-
 
 	//Toggle between wall and empty
 	public void ToggleWall(GameTile tile)
