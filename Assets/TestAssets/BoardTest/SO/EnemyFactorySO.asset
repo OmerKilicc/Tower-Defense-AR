@@ -12,4 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b781ea82079a7a543969bf6cc0b41d39, type: 3}
   m_Name: EnemyFactorySO
   m_EditorClassIdentifier: 
+  _scale:
+    _min: 0.5
+    _max: 1
+  _pathOffset:
+    _min: -0.25
+    _max: 0.25
+  _speed:
+    _min: 0.75
+    _max: 1.25
   _prefab: {fileID: 6395843947313002944, guid: 9ddc80efc32ac7c4eaaf75d92abba09e, type: 3}
