@@ -8,6 +8,7 @@ TagManager:
   - Tower
   - Path
   - Mortar
+  - Wall
   layers:
   - Default
   - TransparentFX

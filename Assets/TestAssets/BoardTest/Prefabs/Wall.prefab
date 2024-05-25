@@ -115,9 +115,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1895779940901901690}
   - component: {fileID: 3524535240186075625}
+  - component: {fileID: -6630485002642242814}
   m_Layer: 0
   m_Name: Wall
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -151,3 +152,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: 2
+--- !u!114 &-6630485002642242814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746716457400005270}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e14f7f45687914081c5303ae5cfb8b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  towerPrefab: {fileID: 7482389067817698191, guid: a3c93a473d15faa4397378632ef400b2,
+    type: 3}
+  mortarPrefab: {fileID: 6374694277643781655, guid: 385ab77912846194f98386efa6ed3250,
+    type: 3}
+  _playerData: {fileID: 11400000, guid: 38935801f339b784e9e5077df23f36ec, type: 2}
+  cost: 75

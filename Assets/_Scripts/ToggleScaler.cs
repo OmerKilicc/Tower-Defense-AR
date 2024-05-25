@@ -5,8 +5,9 @@ public class ToggleScaler : MonoBehaviour
 {
     public Toggle toggle;
     public Transform buttonTransform;
-    public Vector3 toggledScale = new Vector3(1.2f, 1.2f, 1.2f); 
-    private Vector3 originalScale; 
+    public Vector3 toggledScale = new Vector3(2.5f, 2.5f, 2.5f); 
+    private Vector3 originalScale;
+    public Toggle otherToggle;
 
     void Start()
     {
@@ -18,7 +19,11 @@ public class ToggleScaler : MonoBehaviour
     {
         if (isOn)
         {
-            buttonTransform.localScale = toggledScale; 
+            buttonTransform.localScale = toggledScale;
+            if (otherToggle != null && otherToggle.isOn) // Check if otherToggle is not null and is on
+            {
+                otherToggle.isOn = false; // Turn the other toggle off
+            }
         }
         else
         {
