@@ -23,9 +23,29 @@ public class BoardManager : MonoBehaviour
 
 	float _spawnProgress;
 
-	EnemyCollection _enemies = new EnemyCollection();
+    GameBehaviorCollection _enemies = new GameBehaviorCollection();
+    GameBehaviorCollection _nonEnemies = new GameBehaviorCollection();
 
-	private void Awake()
+    TowerType selectedTowerType;
+
+    [SerializeField]
+    WarFactory warFactory = default;
+
+    static BoardManager instance;
+
+    public static Shell SpawnShell()
+    {
+        Shell shell = instance.warFactory.Shell;
+        instance._nonEnemies.Add(shell);
+        return shell;
+    }
+
+    void OnEnable()
+    {
+        instance = this;
+    }
+
+    private void Awake()
 	{
 		_board.Initialize(_boardSize, _tileContentFactory);
 		_board.ShowGrid = true;
@@ -52,7 +72,17 @@ public class BoardManager : MonoBehaviour
 			_board.ShowGrid = !_board.ShowGrid;
 		}
 
-		_spawnProgress += _spawnSpeed * Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            selectedTowerType = TowerType.Laser;
+        }
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            selectedTowerType = TowerType.Mortar;
+        }
+
+
+        _spawnProgress += _spawnSpeed * Time.deltaTime;
 		while (_spawnProgress >= 1f)
 		{
 			_spawnProgress -= 1f;
@@ -60,7 +90,10 @@ public class BoardManager : MonoBehaviour
 		}
 
 		_enemies.GameUpdate();
-	}
+        Physics.SyncTransforms();
+        _board.GameUpdate();
+        _nonEnemies.GameUpdate();
+    }
 
 	private void SpawnEnemy()
 	{
@@ -75,7 +108,14 @@ public class BoardManager : MonoBehaviour
 		GameTile tile = _board.GetTile(TouchRay);
 		if (tile != null)
 		{
-			_board.ToggleWall(tile);
+			if (Input.GetKey(KeyCode.LeftShift))
+			{
+				_board.ToggleTower(tile, selectedTowerType);
+			}
+			else
+			{
+				_board.ToggleWall(tile);
+			}
 		}
 	}
 
@@ -107,4 +147,11 @@ public class BoardManager : MonoBehaviour
 		if (_boardSize.y < 2)
 			_boardSize.y = 2;
 	}
+
+    public static Explosion SpawnExplosion()
+    {
+        Explosion explosion = instance.warFactory.Explosion;
+        instance._nonEnemies.Add(explosion);
+        return explosion;
+    }
 }

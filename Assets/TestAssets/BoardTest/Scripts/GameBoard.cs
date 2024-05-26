@@ -21,7 +21,9 @@ public class GameBoard : MonoBehaviour
 
 	GameTileContentFactory _contentFactory;
 
-	Vector2Int _size;
+    List<GameTileContent> updatingContent = new List<GameTileContent>();
+
+    Vector2Int _size;
 	public int SpawnPointCount => _spawnPoints.Count;
 
 	bool _showPaths;
@@ -184,7 +186,7 @@ public class GameBoard : MonoBehaviour
 	public GameTile GetTile(Ray ray)
 	{
 
-		if (Physics.Raycast(ray, out RaycastHit hit))
+		if (Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, 1))
 		{
 			int x = (int)(hit.point.x + _size.x * 0.5f);
 			int y = (int)(hit.point.z + _size.y * 0.5f);
@@ -239,8 +241,44 @@ public class GameBoard : MonoBehaviour
 		}
 	}
 
-	// Does not affect the pathfinding so we do not need to find paths again
-	public void ToggleSpawnPoint(GameTile tile)
+    public void ToggleTower(GameTile tile, TowerType towerType)
+    {
+        if (tile.Content.Type == GameTileContentType.Tower)
+        {
+            updatingContent.Remove(tile.Content);
+			if (((Tower)tile.Content).TowerType == towerType)
+			{
+				tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+			}
+			else
+			{
+                tile.Content = _contentFactory.Get(towerType);
+                updatingContent.Add(tile.Content);
+            }
+            FindPaths();
+        }
+        else if (tile.Content.Type == GameTileContentType.Empty)
+        {
+            tile.Content = _contentFactory.Get(towerType);
+            if (FindPaths())
+            {
+                updatingContent.Add(tile.Content);
+            }
+            else
+            {
+                tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+                FindPaths();
+            }
+        }
+        else if (tile.Content.Type == GameTileContentType.Wall)
+        {
+            tile.Content = _contentFactory.Get(towerType);
+            updatingContent.Add(tile.Content);
+        }
+    }
+
+    // Does not affect the pathfinding so we do not need to find paths again
+    public void ToggleSpawnPoint(GameTile tile)
 	{
 		if (tile.Content.Type == GameTileContentType.SpawnPoint)
 		{
@@ -262,5 +300,12 @@ public class GameBoard : MonoBehaviour
 		return _spawnPoints[index];
 	}
 
+    public void GameUpdate()
+    {
+        for (int i = 0; i < updatingContent.Count; i++)
+        {
+            updatingContent[i].GameUpdate();
+        }
+    }
 }
 

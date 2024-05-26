@@ -15,6 +15,9 @@ public class GameTileContentFactory : GameObjectFactory
 	[SerializeField]
 	GameTileContent _wallPrefab;
 
+	[SerializeField]
+	Tower[] towerPrefabs = default;
+
 	public void Reclaim(GameTileContent content)
 	{
 		Debug.Assert(content.OriginFactory == this, "Wrong factory reclaimed!");
@@ -45,4 +48,18 @@ public class GameTileContentFactory : GameObjectFactory
 		return null;
 	}
 
+	public Tower Get(TowerType type)
+	{
+		Debug.Assert((int)type < towerPrefabs.Length, "Unsupported tower type!");
+		Tower prefab = towerPrefabs[(int)type];
+		Debug.Assert(type == prefab.TowerType, "Tower prefab at wrong index!");
+		return Get(prefab);
+	}
+
+	T Get<T>(T prefab) where T : GameTileContent
+	{
+		T instance = CreateGameObjectInstance(prefab);
+		instance.OriginFactory = this;
+		return instance;
+	}
 }

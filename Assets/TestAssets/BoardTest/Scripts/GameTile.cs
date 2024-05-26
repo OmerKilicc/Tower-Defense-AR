@@ -99,8 +99,9 @@ public class GameTile : MonoBehaviour
 
 		//if the neighbor is wall dont grow the path to it
 		return
-			neighbor.Content.Type != GameTileContentType.Wall ? neighbor : null;
-	}
+            //neighbor.Content.Type != GameTileContentType.Wall ? neighbor : null;
+            neighbor.Content.BlocksPath ? null : neighbor;
+    }
 
 	public GameTile GrowPathNorth() => GrowPathTo(north, Direction.South);
 	public GameTile GrowPathEast() => GrowPathTo(east, Direction.West);

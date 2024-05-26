@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+using UnityEngine.UIElements;
 
-public class NewEnemy : MonoBehaviour
+public class NewEnemy : GameBehavior
 {
 	[SerializeField]
 	Transform _model = default;
@@ -17,8 +18,11 @@ public class NewEnemy : MonoBehaviour
 	float _directionAngleFrom, _directionAngleTo;
 	float _pathOffset;
 	float _speed;
+    float Health { get; set; }
 
-	public EnemyFactory OriginFactory
+    public float Scale { get; private set; }
+
+    public EnemyFactory OriginFactory
 	{
 		get => _originFactory;
 		set
@@ -29,9 +33,15 @@ public class NewEnemy : MonoBehaviour
 	}
 
 	// Enemy alive check, if alive update the progress
-	public bool GameUpdate()
+	public override bool GameUpdate()
 	{
-		_progress += Time.deltaTime * _progressFactor;
+        if (Health <= 0f)
+        {
+            OriginFactory.Reclaim(this);
+            return false;
+        }
+
+        _progress += Time.deltaTime * _progressFactor;
 		while (_progress >= 1f)
 		{
 			// Checks if we reached the destination if so kills the enemy returns false
@@ -61,15 +71,23 @@ public class NewEnemy : MonoBehaviour
 
 	public void Initialize(float scale, float speed, float pathOffset)
 	{
-		_model.localScale = new Vector3(scale, scale, scale);
+        Scale = scale;
+        _model.localScale = new Vector3(scale, scale, scale);
 		this._speed = speed;
 		this._pathOffset = pathOffset;
-	}
+        Health = 100f * scale;
+    }
 
-	// Handles what to do when spawned at point
-	// progress is zero because we just spawned
-	// init path for enemy when spawned
-	public void SpawnOn(GameTile tile)
+    public void ApplyDamage(float damage)
+    {
+        Debug.Assert(damage >= 0f, "Negative damage applied.");
+        Health -= damage;
+    }
+
+    // Handles what to do when spawned at point
+    // progress is zero because we just spawned
+    // init path for enemy when spawned
+    public void SpawnOn(GameTile tile)
 	{
 		Debug.Assert(tile.NextTileOnPath != null, "Nowhere to go!", this);
 

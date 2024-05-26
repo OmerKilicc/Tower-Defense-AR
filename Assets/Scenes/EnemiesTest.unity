@@ -360,6 +360,12 @@ PrefabInstance:
       propertyPath: _board
       value: 
       objectReference: {fileID: 588130911}
+    - target: {fileID: 3998381955600479566, guid: 4aee24bdda6dead48b2907b275826db1,
+        type: 3}
+      propertyPath: warFactory
+      value: 
+      objectReference: {fileID: 11400000, guid: 0c9b34a5b91e06d45a5a5df0810484df,
+        type: 2}
     - target: {fileID: 4298978683160679433, guid: 4aee24bdda6dead48b2907b275826db1,
         type: 3}
       propertyPath: m_Name
