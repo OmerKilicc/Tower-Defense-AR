@@ -1,6 +1,6 @@
 
+using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class GameBoard : MonoBehaviour
@@ -16,14 +16,28 @@ public class GameBoard : MonoBehaviour
 
 	GameTile[] _tiles;
 
+	int[,] Map = {
+	{0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0},
+	{0, 2, 2, 2, 2, 0, 0, 2, 2, 2, 0},
+	{0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0},
+	{0, 2, 0, 2, 2, 2, 2, 2, 0, 2, 2},
+	{0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0},
+	{0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 0},
+	{0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0},
+	{0, 2, 0, 2, 2, 2, 2, 2, 0, 2, 2},
+	{0, 2, 0, 0, 0, 0, 0, 2, 0, 0, 0},
+	{0, 2, 2, 2, 2, 2, 0, 2, 2, 2, 0},
+	{0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0}
+	};
+
 	Queue<GameTile> _searchFrontier = new Queue<GameTile>();
 	List<GameTile> _spawnPoints = new List<GameTile>();
 
 	GameTileContentFactory _contentFactory;
 
-    List<GameTileContent> updatingContent = new List<GameTileContent>();
+	List<GameTileContent> updatingContent = new List<GameTileContent>();
 
-    Vector2Int _size;
+	Vector2Int _size;
 	public int SpawnPointCount => _spawnPoints.Count;
 
 	bool _showPaths;
@@ -74,7 +88,7 @@ public class GameBoard : MonoBehaviour
 		//Size given by player will be applied to this object with localScale func
 		this._size = size;
 		this._contentFactory = contentFactory;
-		_ground.localScale = new Vector3(size.x, size.y, 1f);
+		//_ground.localScale = new Vector3(size.x, size.y, 1f);
 
 		/*
 		 * We will instantiate tiles with a double loop over two dimensions of the grid.
@@ -95,7 +109,7 @@ public class GameBoard : MonoBehaviour
 				GameTile tile = _tiles[i] = Instantiate(_tilePrefab);
 				tile.transform.SetParent(transform, false);
 				tile.transform.localPosition = new Vector3(x - offset.x, 0f, y - offset.y);
-
+				//Tile Scale 
 				//if not in 0 can create neighbor bonds
 				if (x > 0) { GameTile.MakeEastWestNeighbors(tile, _tiles[i - 1]); }
 				if (y > 0) { GameTile.MakeNorthSouthNeighbors(tile, _tiles[i - size.x]); }
@@ -105,13 +119,42 @@ public class GameBoard : MonoBehaviour
 					tile.IsAlternative = !tile.IsAlternative;
 
 				// Give all tiles an empty content instance.
-				tile.Content = _contentFactory.Get(GameTileContentType.Empty);
-
+				tile.Content = _contentFactory.Get(GetTileType(Map[size.y - y - 1,x]));
+				tile.Content.transform.SetParent(tile.transform);
+				tile.Content.transform.localPosition = Vector3.zero;
 			}
 		}
+		transform.localScale = new Vector3(.1f, .1f, .1f);
 
-		ToggleDestination(_tiles[_tiles.Length / 2]);
 		ToggleSpawnPoint(_tiles[0]);
+		ToggleSpawnPoint(_tiles[116]);
+
+
+
+	
+
+		ToggleDestination(_tiles[_tiles.Length - 1]);
+	}
+
+
+	private GameTileContentType GetTileType(int idx) 
+	{
+		GameTileContentType type;
+		switch (idx)
+		{
+			case 0:
+				return GameTileContentType.Empty;
+			case 1:
+				return GameTileContentType.Destination;
+			case 2:
+				return GameTileContentType.Wall;
+			case 3:
+				return GameTileContentType.SpawnPoint;
+			case 4:
+				return GameTileContentType.Tower;
+
+		}
+		return GameTileContentType.Empty;
 	}
 
 	private bool FindPaths()
@@ -198,6 +241,21 @@ public class GameBoard : MonoBehaviour
 
 		return null;
 	}
+	public GameTile GetTile(UnityEngine.XR.ARFoundation.ARRaycastHit hit)
+	{
+
+		
+		
+			int x = (int)(hit.pose.position.x + _size.x * 0.5f);
+			int y = (int)(hit.pose.position.z + _size.y * 0.5f);
+			if (x >= 0 && x < _size.x && y >= 0 && y < _size.y)
+			{
+				return _tiles[x + y * _size.x];
+			}
+		
+
+		return null;
+	}
 
 	// Make it destination if its empty, make it empty if its destination
 	// FindPaths again in both occasions
@@ -211,74 +269,81 @@ public class GameBoard : MonoBehaviour
 			if (!FindPaths())
 			{
 				tile.Content = _contentFactory.Get(GameTileContentType.Destination);
+				tile.Content.transform.SetParent(tile.transform);
+				tile.Content.transform.localPosition = Vector3.zero;
 				FindPaths();
 			}
 		}
 		else if (tile.Content.Type == GameTileContentType.Empty)
 		{
 			tile.Content = _contentFactory.Get(GameTileContentType.Destination);
+			tile.Content.transform.SetParent(tile.transform);
+			tile.Content.transform.localPosition = Vector3.zero;
 			FindPaths();
 		}
 	}
 
 	//Toggle between wall and empty
-	public void ToggleWall(GameTile tile)
+	//public void ToggleWall(GameTile tile)
+	//{
+	//	if (tile.Content.Type == GameTileContentType.Wall)
+	//	{
+	//		tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+	//		FindPaths();
+	//	}
+	//	else if (tile.Content.Type == GameTileContentType.Empty)
+	//	{
+	//		tile.Content = _contentFactory.Get(GameTileContentType.Wall);
+	//		if (!FindPaths())
+	//		{
+	//			tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+	//			FindPaths();
+
+	//		}
+	//	}
+	//}
+
+	public void ToggleTower(GameTile tile, TowerType towerType)
 	{
-		if (tile.Content.Type == GameTileContentType.Wall)
+		if (tile.Content.Type == GameTileContentType.Tower)
 		{
-			tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+			updatingContent.Remove(tile.Content);
+			if (((Tower)tile.Content).TowerType == towerType)
+			{
+				tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+				tile.Content.transform.SetParent(tile.transform); tile.Content.transform.localPosition = Vector3.zero;
+			}
+			else
+			{
+				tile.Content = _contentFactory.Get(towerType);
+				tile.Content.transform.SetParent(tile.transform); tile.Content.transform.localPosition = Vector3.zero;
+
+				updatingContent.Add(tile.Content);
+			}
 			FindPaths();
 		}
 		else if (tile.Content.Type == GameTileContentType.Empty)
 		{
-			tile.Content = _contentFactory.Get(GameTileContentType.Wall);
-			if (!FindPaths())
+			tile.Content = _contentFactory.Get(towerType);
+			if (FindPaths())
 			{
-				tile.Content = _contentFactory.Get(GameTileContentType.Empty);
-				FindPaths();
-
-			}
-		}
-	}
-
-    public void ToggleTower(GameTile tile, TowerType towerType)
-    {
-        if (tile.Content.Type == GameTileContentType.Tower)
-        {
-            updatingContent.Remove(tile.Content);
-			if (((Tower)tile.Content).TowerType == towerType)
-			{
-				tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+				updatingContent.Add(tile.Content);
 			}
 			else
 			{
-                tile.Content = _contentFactory.Get(towerType);
-                updatingContent.Add(tile.Content);
-            }
-            FindPaths();
-        }
-        else if (tile.Content.Type == GameTileContentType.Empty)
-        {
-            tile.Content = _contentFactory.Get(towerType);
-            if (FindPaths())
-            {
-                updatingContent.Add(tile.Content);
-            }
-            else
-            {
-                tile.Content = _contentFactory.Get(GameTileContentType.Empty);
-                FindPaths();
-            }
-        }
-        else if (tile.Content.Type == GameTileContentType.Wall)
-        {
-            tile.Content = _contentFactory.Get(towerType);
-            updatingContent.Add(tile.Content);
-        }
-    }
+				tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+				FindPaths();
+			}
+		}
+		else if (tile.Content.Type == GameTileContentType.Wall)
+		{
+			tile.Content = _contentFactory.Get(towerType);
+			updatingContent.Add(tile.Content);
+		}
+	}
 
-    // Does not affect the pathfinding so we do not need to find paths again
-    public void ToggleSpawnPoint(GameTile tile)
+	// Does not affect the pathfinding so we do not need to find paths again
+	public void ToggleSpawnPoint(GameTile tile)
 	{
 		if (tile.Content.Type == GameTileContentType.SpawnPoint)
 		{
@@ -286,12 +351,17 @@ public class GameBoard : MonoBehaviour
 			{
 				_spawnPoints.Remove(tile);
 				tile.Content = _contentFactory.Get(GameTileContentType.Empty);
+				tile.Content.transform.SetParent(tile.transform);
+				tile.Content.transform.localPosition = Vector3.zero;
 			}
 		}
 		else if (tile.Content.Type == GameTileContentType.Empty)
 		{
 			tile.Content = _contentFactory.Get(GameTileContentType.SpawnPoint);
+			tile.Content.transform.SetParent(tile.transform);
+			tile.Content.transform.localPosition = Vector3.zero;
 			_spawnPoints.Add(tile);
+			
 		}
 	}
 
@@ -300,12 +370,12 @@ public class GameBoard : MonoBehaviour
 		return _spawnPoints[index];
 	}
 
-    public void GameUpdate()
-    {
-        for (int i = 0; i < updatingContent.Count; i++)
-        {
-            updatingContent[i].GameUpdate();
-        }
-    }
+	public void GameUpdate()
+	{
+		for (int i = 0; i < updatingContent.Count; i++)
+		{
+			updatingContent[i].GameUpdate();
+		}
+	}
 }
 

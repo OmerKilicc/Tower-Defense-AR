@@ -506,9 +506,39 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 958098390546290900, guid: 09b3f9e9b1d672746ad02a087bda487a,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
+    - target: {fileID: 1160894423032345866, guid: 09b3f9e9b1d672746ad02a087bda487a,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1160894423032345866, guid: 09b3f9e9b1d672746ad02a087bda487a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1160894423032345866, guid: 09b3f9e9b1d672746ad02a087bda487a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 4212048592394776165, guid: 09b3f9e9b1d672746ad02a087bda487a,
         type: 3}
       propertyPath: m_Name
+      value: GameBoard
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212048592394776165, guid: 09b3f9e9b1d672746ad02a087bda487a,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4212048592394776165, guid: 09b3f9e9b1d672746ad02a087bda487a,
+        type: 3}
+      propertyPath: m_TagString
       value: GameBoard
       objectReference: {fileID: 0}
     - target: {fileID: 6955085166504093717, guid: 09b3f9e9b1d672746ad02a087bda487a,
@@ -613,16 +643,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3007608301810965085, guid: 4aee24bdda6dead48b2907b275826db1,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3007608301810965085, guid: 4aee24bdda6dead48b2907b275826db1,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3007608301810965085, guid: 4aee24bdda6dead48b2907b275826db1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1510,6 +1530,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2373305978132688637, guid: 1bd8071686c126e40ab2411fbed13d37,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2458869380396226733, guid: 1bd8071686c126e40ab2411fbed13d37,
         type: 3}
       propertyPath: m_fontAsset
@@ -1631,6 +1656,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7599865720712020990, guid: 1bd8071686c126e40ab2411fbed13d37,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1742,6 +1772,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1518534170744715553, guid: 7510e61315cd3d54f887fcb70d7cc117,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2337067859664074175, guid: 7510e61315cd3d54f887fcb70d7cc117,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1812,6 +1847,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1648103923}
+    - target: {fileID: 4699035770293193601, guid: 7510e61315cd3d54f887fcb70d7cc117,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4959013471888205008, guid: 7510e61315cd3d54f887fcb70d7cc117,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -2033,6 +2073,12 @@ PrefabInstance:
       objectReference: {fileID: 1643129865}
     - target: {fileID: 3837804879327355886, guid: 69c623208853261458ef910a66a9270e,
         type: 3}
+      propertyPath: towerPrefab
+      value: 
+      objectReference: {fileID: 8746716457400005270, guid: 31b89496161f5024ba754c7d6cfcf8f8,
+        type: 3}
+    - target: {fileID: 3837804879327355886, guid: 69c623208853261458ef910a66a9270e,
+        type: 3}
       propertyPath: _canvasObject
       value: 
       objectReference: {fileID: 632843062}
@@ -2169,6 +2215,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7193404713760639020, guid: a3acf8e0f2ddfb240b010d55c6114735,
+        type: 3}
+      propertyPath: DebugText
+      value: 
+      objectReference: {fileID: 632843062}
     - target: {fileID: 7193404713760639020, guid: a3acf8e0f2ddfb240b010d55c6114735,
         type: 3}
       propertyPath: _pauseCanvas

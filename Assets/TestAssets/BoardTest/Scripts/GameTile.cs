@@ -74,6 +74,7 @@ public class GameTile : MonoBehaviour
 		distance = 0;
 		nextOnPath = null;
 		ExitPoint = transform.localPosition;
+		Debug.LogWarning(transform.position);
 	}
 
 	public bool HasPath => distance != int.MaxValue;

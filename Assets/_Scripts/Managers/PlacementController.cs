@@ -12,12 +12,15 @@ public class PlacementController : MonoBehaviour
 {
     public static PlacementController Instance { get; private set; }
 
-    private ARRaycastManager _arRaycastManager;
+    public ARRaycastManager _arRaycastManager;
 
     [SerializeField]
     private GameObject _gameScene;
 
-    static List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    public static List<ARRaycastHit> hits = new List<ARRaycastHit>();
+
+    [SerializeField]
+    private GameObject towerPrefab;
 
     #region DebuggingPurposes
     [SerializeField]
@@ -65,9 +68,29 @@ public class PlacementController : MonoBehaviour
         {
             InputManager.Instance.OnTouchedScreen -= ReplaceGameSceneWithTouchPosition;
         }
-    }
 
-    private void OnDisable()
+        if(state == GameManager.GameState.Playing) 
+        {
+            InputManager.Instance.OnTouchedScreen += PlaceTowers;
+
+        }
+        else 
+        {
+			InputManager.Instance.OnTouchedScreen -= PlaceTowers;
+
+		}
+	}
+	private void OnEnable()
+	{
+	}
+
+	private void PlaceTowers(Vector2 position, RaycastHit? hitinfo)
+	{
+
+        TrySpawnObjectOnTouchPosition(towerPrefab, position);
+	}
+
+	private void OnDisable()
     {
         InputManager.Instance.OnTouchedScreen -= ReplaceGameSceneWithTouchPosition;
     }
@@ -88,7 +111,9 @@ public class PlacementController : MonoBehaviour
     {
         if (Instance._arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
         {
-            var hitPose = hits[0].pose;
+			UIManager.Instance.DebugAText(touchPosition.ToString());
+
+			var hitPose = hits[0].pose;
 
             Instantiate(objectToCreate, hitPose.position, hitPose.rotation);
             return true;
@@ -106,6 +131,7 @@ public class PlacementController : MonoBehaviour
             var positionOffset = new Vector3(0, 0.01f, 0);
             _gameScene.transform.position = hitPose.position + positionOffset;
             _gameScene.SetActive(true);
+            GameManager.Instance.UpdateGameState(GameManager.GameState.Playing);
         }
     }
 

@@ -33,7 +33,7 @@ public abstract class GameObjectFactory : ScriptableObject
 		// return the created object
 
 		T instance = Instantiate(prefab);
-		SceneManager.MoveGameObjectToScene(instance.gameObject, scene);
+		//SceneManager.MoveGameObjectToScene(instance.gameObject, scene);
 		return instance;
 	}
 }

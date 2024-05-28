@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -26,7 +28,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private GameObject _pauseCanvas;
     [SerializeField] private GameObject _gameOverCanvas;
-
+    public TextMeshProUGUI DebugText;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +39,10 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         
+    }
+     public void DebugAText(string text) 
+    {
+        DebugText.text = text; 
     }
 
     public void HideMainMenu(GameObject canvasMainMenu) 

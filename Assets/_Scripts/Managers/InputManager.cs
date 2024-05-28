@@ -21,6 +21,7 @@ public class InputManager : MonoBehaviour
 	#endregion
 
 	public Action<Vector2,RaycastHit?> OnTouchedScreen; //Subscribe to this Action to instantiate an object with touching on screen etc.
+	//public Action<Vector2,Ray> OnRaySpawned; //Subscribe to this Action to instantiate an object with touching on screen etc.
 
 	// Update is called once per frame
 	void Update()
@@ -42,6 +43,7 @@ public class InputManager : MonoBehaviour
 			if (Physics.Raycast(ray, out hit)) 
 			{
 				OnTouchedScreen?.Invoke(touch.position, hit);
+				//OnRaySpawned?.Invoke(touch.position, ray);
 			}
 			else
 			{

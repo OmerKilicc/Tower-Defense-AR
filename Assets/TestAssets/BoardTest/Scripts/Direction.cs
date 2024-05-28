@@ -22,10 +22,10 @@ public static class DirectionExtensions
 
 	static Vector3[] halfVectors =
 	{
-		Vector3.forward * 0.5f,
-		Vector3.right * 0.5f,
-		Vector3.back * 0.5f,
-		Vector3.left * 0.5f
+		Vector3.forward * 0.05f,
+		Vector3.right * 0.05f,
+		Vector3.back * 0.05f,
+		Vector3.left * 0.05f
 	};
 
 

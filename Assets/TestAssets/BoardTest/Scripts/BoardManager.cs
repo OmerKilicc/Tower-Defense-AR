@@ -1,9 +1,9 @@
 using System;
 using UnityEngine;
+using UnityEngine.XR.ARSubsystems;
 
 public class BoardManager : MonoBehaviour
 {
-	//TODO: Deploy this to Game Manager
 	[SerializeField]
 	Vector2Int _boardSize = new Vector2Int(11, 11);
 
@@ -23,36 +23,76 @@ public class BoardManager : MonoBehaviour
 
 	float _spawnProgress;
 
-    GameBehaviorCollection _enemies = new GameBehaviorCollection();
-    GameBehaviorCollection _nonEnemies = new GameBehaviorCollection();
+	GameBehaviorCollection _enemies = new GameBehaviorCollection();
+	GameBehaviorCollection _nonEnemies = new GameBehaviorCollection();
 
-    TowerType selectedTowerType;
+	TowerType selectedTowerType;
 
-    [SerializeField]
-    WarFactory warFactory = default;
+	[SerializeField]
+	WarFactory warFactory = default;
 
-    static BoardManager instance;
+	static BoardManager instance;
 
-    public static Shell SpawnShell()
-    {
-        Shell shell = instance.warFactory.Shell;
-        instance._nonEnemies.Add(shell);
-        return shell;
-    }
+	public static Shell SpawnShell()
+	{
+		Shell shell = instance.warFactory.Shell;
+		instance._nonEnemies.Add(shell);
+		return shell;
+	}
 
-    void OnEnable()
-    {
-        instance = this;
-    }
+	void OnEnable()
+	{
+		instance = this;
+		//InputManager.Instance.OnTouchedScreen += HandleTouch;
+	}
 
-    private void Awake()
+	
+
+	private void OnDisable()
+	{
+		//InputManager.Instance.OnTouchedScreen -= HandleTouch;
+	}
+
+	//private void HandleTouch(Vector2 vector, Ray ray)
+	//{
+	//	UIManager.Instance.HandleGameOver();
+	//	GameTile tile = _board.GetTile(ray);
+	//	if (tile != null)
+	//	{
+	//		_board.ToggleTower(tile, selectedTowerType);
+	//		UIManager.Instance.HandleGameOver();
+	//		//_board.ToggleWall(tile);
+
+	//	}
+	//}
+	private void HandleTouch(Vector2 touchPosition, RaycastHit? hit)
+	{
+		if (PlacementController.Instance._arRaycastManager.Raycast(touchPosition, PlacementController.hits, TrackableType.PlaneWithinPolygon)) 
+		{
+			
+			GameTile tile = _board.GetTile(PlacementController.hits[0]);
+			if (tile != null)
+			{
+				UIManager.Instance.HandleGameOver();
+				_board.ToggleTower(tile, selectedTowerType);
+				UIManager.Instance.HandleGameOver();
+				//_board.ToggleWall(tile);
+
+			}
+
+		}
+	}
+
+	private void Awake()
 	{
 		_board.Initialize(_boardSize, _tileContentFactory);
 		_board.ShowGrid = true;
 	}
 
+
 	private void Update()
 	{
+		/*
 		if (Input.GetMouseButtonDown(0))
 		{
 			HandleTouch();
@@ -80,29 +120,33 @@ public class BoardManager : MonoBehaviour
         {
             selectedTowerType = TowerType.Mortar;
         }
-
-
-        _spawnProgress += _spawnSpeed * Time.deltaTime;
-		while (_spawnProgress >= 1f)
+		*/
+		if(GameManager.Instance.State == GameManager.GameState.Playing) 
 		{
-			_spawnProgress -= 1f;
-			SpawnEnemy();
-		}
+			_spawnProgress += _spawnSpeed * Time.deltaTime;
+			while (_spawnProgress >= 1f)
+			{
+				_spawnProgress -= 1f;
+				SpawnEnemy();
+			}
 
-		_enemies.GameUpdate();
-        Physics.SyncTransforms();
-        _board.GameUpdate();
-        _nonEnemies.GameUpdate();
-    }
+			_enemies.GameUpdate();
+			Physics.SyncTransforms();
+			_board.GameUpdate();
+			_nonEnemies.GameUpdate();
+		}
+	}
 
 	private void SpawnEnemy()
 	{
 		GameTile spawnPoint = _board.GetSpawnPoint(UnityEngine.Random.Range(0, _board.SpawnPointCount));
 		NewEnemy enemy = _enemyFactory.Get();
+		enemy.transform.position = spawnPoint.transform.position;
 		enemy.SpawnOn(spawnPoint);
 		_enemies.Add(enemy);
 	}
 
+	/*
 	private void HandleTouch()
 	{
 		GameTile tile = _board.GetTile(TouchRay);
@@ -137,6 +181,7 @@ public class BoardManager : MonoBehaviour
 			}
 		}
 	}
+	*/
 
 	//Check if board is in logical size to spawn
 	private void OnValidate()

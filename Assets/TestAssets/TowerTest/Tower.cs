@@ -22,7 +22,8 @@ public abstract class Tower : GameTileContent
         if (TargetPoint.FillBuffer(transform.localPosition, targetingRange))
         {
             target = TargetPoint.RandomBuffered;
-            return true;
+            UIManager.Instance.DebugAText(target.name);
+            return target != null;
         }
         target = null;
         return false;

@@ -20,7 +20,7 @@ public class LaserTower : Tower
 
     void Awake()
     {
-        laserBeamScale = laserBeam.localScale;
+        laserBeamScale = transform.localScale;
     }
 
     public override void GameUpdate()

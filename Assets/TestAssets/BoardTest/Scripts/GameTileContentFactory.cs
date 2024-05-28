@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -18,6 +19,7 @@ public class GameTileContentFactory : GameObjectFactory
 	[SerializeField]
 	Tower[] towerPrefabs = default;
 
+
 	public void Reclaim(GameTileContent content)
 	{
 		Debug.Assert(content.OriginFactory == this, "Wrong factory reclaimed!");
@@ -25,11 +27,14 @@ public class GameTileContentFactory : GameObjectFactory
 	}
 
 
+
+
 	// kendisine verilen prefab türünde contenti spawn eder kendini origin olarak verir
 	// factory sahnesine taşır ve return eder
 	GameTileContent Get(GameTileContent prefab)
 	{
 		GameTileContent instance = CreateGameObjectInstance(prefab);
+		//instance.transform.parent = GameObject.FindGameObjectWithTag("Ground").transform;
 		instance.OriginFactory = this;
 		return instance;
 	}
@@ -59,6 +64,7 @@ public class GameTileContentFactory : GameObjectFactory
 	T Get<T>(T prefab) where T : GameTileContent
 	{
 		T instance = CreateGameObjectInstance(prefab);
+		
 		instance.OriginFactory = this;
 		return instance;
 	}

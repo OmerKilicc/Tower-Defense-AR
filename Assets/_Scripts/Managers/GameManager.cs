@@ -56,11 +56,6 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged?.Invoke(State);
     }
 
-    public void StartPlaying() 
-    {
-        UpdateGameState(GameState.Playing);
-        SoundManager.Instance.PlayOneShot(SoundManager.Sounds.ButtonClick);
-    }
 
     public enum GameState 
     {

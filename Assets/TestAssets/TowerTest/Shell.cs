@@ -27,6 +27,7 @@ public class Shell : WarEntity
         if (p.y <= 0f)
         {
             BoardManager.SpawnExplosion().Initialize(targetPoint, blastRadius, damage);
+            Debug.LogWarning(targetPoint);
             OriginFactory.Reclaim(this);
             return false;
         }

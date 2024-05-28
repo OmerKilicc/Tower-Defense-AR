@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class TargetPoint : MonoBehaviour
 {
-
     public NewEnemy Enemy { get; private set; }
 
     public Vector3 Position => transform.position;
@@ -29,9 +28,9 @@ public class TargetPoint : MonoBehaviour
     public static bool FillBuffer(Vector3 position, float range)
     {
         Vector3 top = position;
-        top.y += 3f;
+        top.y += 30f;
         BufferedCount = Physics.OverlapCapsuleNonAlloc(
-            position, top, range, buffer, enemyLayerMask
+            position, top, 30, buffer, enemyLayerMask
         );
         return BufferedCount > 0;
     }

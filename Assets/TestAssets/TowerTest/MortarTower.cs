@@ -52,6 +52,8 @@ public class MortarTower : Tower
 
     public void Launch(TargetPoint target)
     {
+        if (target == null) return;
+
         Vector3 launchPoint = mortar.position;
         Vector3 targetPoint = target.Position;
         targetPoint.y = 0f;

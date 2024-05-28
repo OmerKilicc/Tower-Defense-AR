@@ -20,6 +20,8 @@ public class EnemyFactory : GameObjectFactory
 	public NewEnemy Get()
 	{
 		NewEnemy instance = CreateGameObjectInstance(_prefab);
+		instance.transform.SetParent(GameObject.FindGameObjectWithTag("GameBoard").transform);
+		
 		instance.OriginFactory = this;
 		instance.Initialize(_scale.RandomValueInRange, _speed.RandomValueInRange, _pathOffset.RandomValueInRange);
 		return instance;
