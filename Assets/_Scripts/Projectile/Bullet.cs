@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour, IProjectile
 {
-    [SerializeField] private int _bulletDamage = 25;
+    [SerializeField] private int _bulletDamage = 65;
     private Vector3 _targetPosition;
 
 	private float _speed = 0.4f;

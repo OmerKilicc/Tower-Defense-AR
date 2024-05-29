@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6664656311935381049}
   - component: {fileID: 3656037095743254765}
   - component: {fileID: 2407478224146183922}
-  - component: {fileID: 8853486510919308193}
+  - component: {fileID: -410309095049705467}
+  - component: {fileID: 6101690678260717778}
   m_Layer: 0
   m_Name: Shell
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
+  m_LocalScale: {x: 0.025, y: 0.025, z: 0.025}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -84,7 +85,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8853486510919308193
+--- !u!114 &-410309095049705467
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -93,6 +94,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 6035929480810517632}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 27a91b6b51af33847b8c50819081cc52, type: 3}
+  m_Script: {fileID: 11500000, guid: 69778658bd359e14aba1011b4b88611a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _bulletDamage: 25
+--- !u!65 &6101690678260717778
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6035929480810517632}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}

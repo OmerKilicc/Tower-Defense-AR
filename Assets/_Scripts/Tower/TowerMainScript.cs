@@ -1,15 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class TowerMainScript : MonoBehaviour
 {
     public List<Transform> enemiesInRange = new List<Transform>();
     public Transform bulletPrefab;
     public Transform shootingPoint;
-    public Transform target;
+    private Transform target;
     public float fireRate = 1f; //saniye baþýna atýlacak mermi
     private bool isShooting = false;
+    TargetPoint targetp;
+    public float damagePerSecond = 65f;
 
     public float shootCooldown = 1.0f; //mermiler arasý beklenecek süre
     private float currentCooldown = 0.0f; //mermiler arasý geçen süre
@@ -96,6 +99,18 @@ public class TowerMainScript : MonoBehaviour
         //cooldown
         isShooting = false;
 
-        SoundManager.Instance.PlayOneShot(SoundManager.Sounds.PistolFire);
+        //SoundManager.Instance.PlayOneShot(SoundManager.Sounds.PistolFire);
     }
+
+    //void Shoot()
+    //{
+    //    Vector3 point = target.position;
+    //    shootingPoint.LookAt(point);
+    //    bulletPrefab.localRotation = shootingPoint.localRotation;
+
+    //    float d = Vector3.Distance(shootingPoint.position, point);
+    //    bulletPrefab.localPosition =
+    //        shootingPoint.localPosition + 0.5f * d * bulletPrefab.forward;
+    //    //targetp.Enemy.ApplyDamage(damagePerSecond * Time.deltaTime);
+    //}
 }
