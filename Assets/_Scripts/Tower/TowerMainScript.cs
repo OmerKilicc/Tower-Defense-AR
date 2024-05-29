@@ -8,7 +8,7 @@ public class TowerMainScript : MonoBehaviour
     public List<Transform> enemiesInRange = new List<Transform>();
     public Transform bulletPrefab;
     public Transform shootingPoint;
-    private Transform target;
+    public Transform target;
     public float fireRate = 1f; //saniye baþýna atýlacak mermi
     private bool isShooting = false;
     TargetPoint targetp;
@@ -16,6 +16,8 @@ public class TowerMainScript : MonoBehaviour
 
     public float shootCooldown = 1.0f; //mermiler arasý beklenecek süre
     private float currentCooldown = 0.0f; //mermiler arasý geçen süre
+
+    private GameObject randomEnemy;
 
     void Update()
     {
@@ -25,7 +27,10 @@ public class TowerMainScript : MonoBehaviour
         {
             target = null; // þu anki target inactive ise targeti sýfýrla
         }
-
+        if (target == null)
+        {
+            target = ChooseTarget();
+        }
         if (target != null)
         {
             currentCooldown -= Time.deltaTime;

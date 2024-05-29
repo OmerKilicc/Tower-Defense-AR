@@ -80,7 +80,9 @@ namespace Enemy
 		{
 			_enemyData.CurrentHealth -= damage;
 
-			if(_enemyData.CurrentHealth <= 0)
+            UIManager.Instance.DebugAText("vurdu");
+
+			if (_enemyData.CurrentHealth <= 0)
 			{
 				Die();
 			}

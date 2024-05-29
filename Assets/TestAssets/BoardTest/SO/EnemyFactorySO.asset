@@ -21,4 +21,4 @@ MonoBehaviour:
   _speed:
     _min: 0.75
     _max: 1.25
-  _prefab: {fileID: 6395843947313002944, guid: 9ddc80efc32ac7c4eaaf75d92abba09e, type: 3}
+  _prefab: {fileID: 8999190374655588346, guid: 2bd7b6c340aafe14ba8542eb21f4f5ce, type: 3}

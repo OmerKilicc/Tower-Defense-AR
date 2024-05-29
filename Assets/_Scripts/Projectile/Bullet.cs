@@ -2,13 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class Bullet : MonoBehaviour, IProjectile
 {
-    [SerializeField] private int _bulletDamage = 65;
+    [SerializeField] private int _bulletDamage = 10000;
     private Vector3 _targetPosition;
 
-	private float _speed = 0.4f;
+    private float _speed = 1.55f;
     public static event Action<int> OnEnemyDamaged;
 
 	//towerdan çaðýrýlan fonksiyon
@@ -30,8 +31,8 @@ public class Bullet : MonoBehaviour, IProjectile
         {
             OnEnemyDamaged.Invoke(_bulletDamage);
 
-			//TODO : make bullets inactive by adding them to objectpool
-			Destroy(gameObject);
+            //TODO : make bullets inactive by adding them to objectpool
+            Destroy(gameObject);
 		}
 	}
 }
