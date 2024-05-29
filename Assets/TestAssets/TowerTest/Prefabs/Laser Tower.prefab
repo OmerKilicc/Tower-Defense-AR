@@ -387,10 +387,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1895779940901901690}
-  - component: {fileID: 8468350105707604684}
+  - component: {fileID: 284408083462062780}
+  - component: {fileID: 2078994610214286078}
   m_Layer: 0
   m_Name: Laser Tower
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -415,7 +416,7 @@ Transform:
   - {fileID: 2287474247922263784}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8468350105707604684
+--- !u!114 &284408083462062780
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -424,14 +425,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 8746716457400005270}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d8193596507ce469c51fb574a4a53c, type: 3}
+  m_Script: {fileID: 11500000, guid: fb859fb9853d32c44b3603ef7625da73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _type: 4
-  targetingRange: 5.35
-  turret: {fileID: 3267761157440988003}
-  laserBeam: {fileID: 2205150318705906841}
-  damagePerSecond: 64.8
+  enemiesInRange: []
+  bulletPrefab: {fileID: 0}
+  shootingPoint: {fileID: 0}
+  fireRate: 1
+  damagePerSecond: 65
+  shootCooldown: 1
+--- !u!135 &2078994610214286078
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746716457400005270}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 2.9505851
+  m_Center: {x: 0, y: 1.1688695, z: 0.031236708}
 --- !u!1001 &541774124605924088
 PrefabInstance:
   m_ObjectHideFlags: 0
