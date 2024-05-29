@@ -184,32 +184,32 @@ public class NewEnemy : GameBehavior
 		_progressFactor = 2f * _speed;
 	}
 
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Tower"))
-        {
-            // Notify the tower about this enemy entering its range
-            TowerMainScript tower = other.GetComponent<TowerMainScript>();
-            if (tower != null)
-            {
-                tower.enemiesInRange.Add(transform);
-                Debug.Log("Enemy entered tower range.");
-            }
-        }
-    }
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Tower"))
+    //    {
+    //        // Notify the tower about this enemy entering its range
+    //        TowerMainScript tower = other.GetComponent<TowerMainScript>();
+    //        if (tower != null)
+    //        {
+    //            tower.enemiesInRange.Add(transform);
+    //            Debug.Log("Enemy entered tower range.");
+    //        }
+    //    }
+    //}
 
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Tower"))
-        {
-            // Notify the tower about this enemy leaving its range
-            TowerMainScript tower = other.GetComponent<TowerMainScript>();
-            if (tower != null)
-            {
-                tower.enemiesInRange.Remove(transform);
-                Debug.Log("Enemy left tower range.");
-            }
-        }
-    }
+    //void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.CompareTag("Tower"))
+    //    {
+    //        // Notify the tower about this enemy leaving its range
+    //        TowerMainScript tower = other.GetComponent<TowerMainScript>();
+    //        if (tower != null)
+    //        {
+    //            tower.enemiesInRange.Remove(transform);
+    //            Debug.Log("Enemy left tower range.");
+    //        }
+    //    }
+    //}
 
 }

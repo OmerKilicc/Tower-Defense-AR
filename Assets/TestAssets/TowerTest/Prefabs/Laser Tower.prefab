@@ -389,6 +389,7 @@ GameObject:
   - component: {fileID: 1895779940901901690}
   - component: {fileID: 284408083462062780}
   - component: {fileID: 2078994610214286078}
+  - component: {fileID: 2494475605800861188}
   m_Layer: 0
   m_Name: Laser Tower
   m_TagString: Tower
@@ -429,8 +430,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesInRange: []
-  bulletPrefab: {fileID: 0}
-  shootingPoint: {fileID: 0}
+  bulletPrefab: {fileID: 6664656311935381049, guid: 0e23e1e88f5bc3b44bca735dcb1296d8,
+    type: 3}
+  shootingPoint: {fileID: 3267761157440988003}
   fireRate: 1
   damagePerSecond: 65
   shootCooldown: 1
@@ -455,6 +457,33 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2.9505851
   m_Center: {x: 0, y: 1.1688695, z: 0.031236708}
+--- !u!54 &2494475605800861188
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8746716457400005270}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &541774124605924088
 PrefabInstance:
   m_ObjectHideFlags: 0
