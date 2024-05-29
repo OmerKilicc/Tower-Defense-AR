@@ -29,6 +29,7 @@ public class EnemyFactory : GameObjectFactory
 	public void Reclaim(NewEnemy enemy)
 	{
 		Debug.Assert(enemy.OriginFactory == this, "Wrong factory reclaimed!");
+		ParticleManager.Instance.SpawnParticleAtLocation(enemy.transform.position,ParticleManager.Particles.Explosion);
 		Destroy(enemy.gameObject);
 	}
 }
