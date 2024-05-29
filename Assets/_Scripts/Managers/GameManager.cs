@@ -29,9 +29,10 @@ public class GameManager : MonoBehaviour
 
     public static event Action<GameState> OnGameStateChanged;
 
+    public GameState StartState = GameState.DetectPlane;
     private void Start()
     {
-        UpdateGameState(GameState.DetectPlane);
+        UpdateGameState(StartState);
     }
 
     public void UpdateGameState(GameState state) 
