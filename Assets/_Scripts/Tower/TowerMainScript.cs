@@ -27,10 +27,10 @@ public class TowerMainScript : MonoBehaviour
         {
             target = null; // þu anki target inactive ise targeti sýfýrla
         }
-        if (target == null)
-        {
-            target = ChooseTarget();
-        }
+        //if (target == null)
+        //{
+        //    target = ChooseTarget();
+        //}
         if (target != null)
         {
             currentCooldown -= Time.deltaTime;
@@ -100,6 +100,8 @@ public class TowerMainScript : MonoBehaviour
         Transform bulletInstance = Instantiate(bulletPrefab, shootingPoint.position, lookRotation);
 
         bulletInstance.GetComponent<Bullet>().Initialize(target.position);
+
+
 
         //cooldown
         isShooting = false;

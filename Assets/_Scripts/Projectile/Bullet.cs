@@ -29,7 +29,8 @@ public class Bullet : MonoBehaviour, IProjectile
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            OnEnemyDamaged.Invoke(_bulletDamage);
+            other.GetComponent<NewEnemy>().ApplyDamage(200);
+            //OnEnemyDamaged.Invoke(_bulletDamage);
 
             //TODO : make bullets inactive by adding them to objectpool
             Destroy(gameObject);
