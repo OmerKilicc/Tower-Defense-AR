@@ -27,8 +27,6 @@ public class GameTileContentFactory : GameObjectFactory
 	}
 
 
-
-
 	// kendisine verilen prefab türünde contenti spawn eder kendini origin olarak verir
 	// factory sahnesine taşır ve return eder
 	GameTileContent Get(GameTileContent prefab)

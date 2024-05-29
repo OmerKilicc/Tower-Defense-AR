@@ -534,7 +534,7 @@ PrefabInstance:
     - target: {fileID: 4212048592394776165, guid: 09b3f9e9b1d672746ad02a087bda487a,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4212048592394776165, guid: 09b3f9e9b1d672746ad02a087bda487a,
         type: 3}
@@ -744,6 +744,18 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3042422004587496376, guid: 2ee0de004d98fc24b9b8878abbf3e623,
     type: 3}
   m_PrefabInstance: {fileID: 6452777530952477957}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1244222766 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9083403688556856847, guid: 1bd8071686c126e40ab2411fbed13d37,
+    type: 3}
+  m_PrefabInstance: {fileID: 1661839027}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -1419,6 +1431,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eda3a671f96ca07448c1c4f0dccc3352, type: 3}
+--- !u!20 &1364541388 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 7477279907400074125, guid: 69c623208853261458ef910a66a9270e,
+    type: 3}
+  m_PrefabInstance: {fileID: 4696292835141996032}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1391248463 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5307680346660051782, guid: 2ee0de004d98fc24b9b8878abbf3e623,
@@ -2068,9 +2086,20 @@ PrefabInstance:
       objectReference: {fileID: 1643129865}
     - target: {fileID: 3837804879327355886, guid: 69c623208853261458ef910a66a9270e,
         type: 3}
+      propertyPath: arCamera
+      value: 
+      objectReference: {fileID: 1364541388}
+    - target: {fileID: 3837804879327355886, guid: 69c623208853261458ef910a66a9270e,
+        type: 3}
       propertyPath: _gameScene
       value: 
       objectReference: {fileID: 1643129865}
+    - target: {fileID: 3837804879327355886, guid: 69c623208853261458ef910a66a9270e,
+        type: 3}
+      propertyPath: _playerData
+      value: 
+      objectReference: {fileID: 11400000, guid: 38935801f339b784e9e5077df23f36ec,
+        type: 2}
     - target: {fileID: 3837804879327355886, guid: 69c623208853261458ef910a66a9270e,
         type: 3}
       propertyPath: towerPrefab
@@ -2220,6 +2249,11 @@ PrefabInstance:
       propertyPath: DebugText
       value: 
       objectReference: {fileID: 632843062}
+    - target: {fileID: 7193404713760639020, guid: a3acf8e0f2ddfb240b010d55c6114735,
+        type: 3}
+      propertyPath: _textMesh
+      value: 
+      objectReference: {fileID: 1244222766}
     - target: {fileID: 7193404713760639020, guid: a3acf8e0f2ddfb240b010d55c6114735,
         type: 3}
       propertyPath: _pauseCanvas

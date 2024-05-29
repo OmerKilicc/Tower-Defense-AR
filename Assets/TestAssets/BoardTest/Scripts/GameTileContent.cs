@@ -1,16 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 [SelectionBase]
 public class GameTileContent : MonoBehaviour
 {
+	//Might need debug
+	[SerializeField]
+	public bool isTowerPlacable = false;
+
 	// Tracks the type of its content
 	[SerializeField]
 	GameTileContentType _type = default;
 	public GameTileContentType Type => _type;
     public bool BlocksPath =>
         Type == GameTileContentType.Wall || Type == GameTileContentType.Tower;
-
 
     // Tracks the factory it came from
     GameTileContentFactory _originFactory;

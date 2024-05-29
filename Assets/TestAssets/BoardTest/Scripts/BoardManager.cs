@@ -46,8 +46,6 @@ public class BoardManager : MonoBehaviour
 		//InputManager.Instance.OnTouchedScreen += HandleTouch;
 	}
 
-	
-
 	private void OnDisable()
 	{
 		//InputManager.Instance.OnTouchedScreen -= HandleTouch;

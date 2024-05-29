@@ -8,9 +8,9 @@ TagManager:
   - Tower
   - Path
   - Mortar
-  - Wall
   - Ground
   - GameBoard
+  - Wall
   layers:
   - Default
   - TransparentFX

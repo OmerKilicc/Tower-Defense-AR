@@ -19,8 +19,6 @@ namespace Enemy
 		[SerializeField] List<Waypoint> path = new List<Waypoint>();
 		[SerializeField][Range(0f, 5f)] float speed = 1f;
 
-
-
 		void OnEnable()
 		{
 			Bullet.OnEnemyDamaged += TakeDamage;
@@ -88,7 +86,6 @@ namespace Enemy
 			}
 		}
 
-
 		public void Move()
 		{
 			FindPathBruteForce();
@@ -113,6 +110,8 @@ namespace Enemy
 			gameObject.SetActive(false);
 			ParticleManager.Instance.SpawnParticleAtLocation(transform.position, ParticleManager.Particles.Explosion);
 			SoundManager.Instance.PlayOneShot(SoundManager.Sounds.EnemyDeath);
+			_playerData.CurrentMoney -= _enemyData.Reward;
+			OnMoneyChanged.Invoke(_playerData.CurrentMoney);
 		}
 	}
 

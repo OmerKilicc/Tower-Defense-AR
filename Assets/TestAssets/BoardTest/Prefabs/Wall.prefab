@@ -151,6 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55c413d0553a84249bdf797db60db66c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isTowerPlacable: 1
   _type: 2
 --- !u!1001 &4124774673981709643
 PrefabInstance:
