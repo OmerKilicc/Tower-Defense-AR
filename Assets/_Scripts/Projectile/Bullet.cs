@@ -23,19 +23,29 @@ public class Bullet : MonoBehaviour, IProjectile
         //mermi hareketi
         float step = _speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, _targetPosition, step);
+        if(Vector3.Distance(_targetPosition,transform.position) < 0.03f) 
+        {
+            Invoke("DestroyShell", 0.1f);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
         {
-            other.GetComponent<NewEnemy>().ApplyDamage(200);
+            other.GetComponent<NewEnemy>().ApplyDamage(_bulletDamage);
             //OnEnemyDamaged.Invoke(_bulletDamage);
 
             //TODO : make bullets inactive by adding them to objectpool
-            Destroy(gameObject);
-		}
+            DestroyShell();
+
+        }
 	}
+
+    private void DestroyShell() 
+    {
+        Destroy(gameObject);
+    }
 }
 
 

@@ -42,10 +42,10 @@ public class TowerMainScript : MonoBehaviour
             }
 
             //düþmana bakmasý için
-            Vector3 targetDirection = target.position - transform.position;
+            Vector3 targetDirection = target.position - shootingPoint.position;
             targetDirection.y = 0; //yerinden yukarý aþaðý oynamasýn 
             Quaternion lookRotation = Quaternion.LookRotation(targetDirection);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+            shootingPoint.rotation = Quaternion.Slerp(shootingPoint.rotation, lookRotation, Time.deltaTime * 5f);
         }
     }
 
@@ -78,7 +78,7 @@ public class TowerMainScript : MonoBehaviour
 
     Transform ChooseTarget()
     {
-        enemiesInRange.RemoveAll(enemy => enemy.gameObject.activeInHierarchy == false);
+        enemiesInRange.RemoveAll(enemy => enemy == null);
 
         if (enemiesInRange.Count > 0)
         {

@@ -433,6 +433,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 6664656311935381049, guid: 0e23e1e88f5bc3b44bca735dcb1296d8,
     type: 3}
   shootingPoint: {fileID: 3267761157440988003}
+  target: {fileID: 0}
   fireRate: 1
   damagePerSecond: 65
   shootCooldown: 1
