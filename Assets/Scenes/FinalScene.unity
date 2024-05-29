@@ -534,7 +534,7 @@ PrefabInstance:
     - target: {fileID: 4212048592394776165, guid: 09b3f9e9b1d672746ad02a087bda487a,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4212048592394776165, guid: 09b3f9e9b1d672746ad02a087bda487a,
         type: 3}
@@ -2429,6 +2429,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2541596884862264860, guid: 49672c5062134ba4dbb28581027cd94d,
+        type: 3}
+      propertyPath: StartState
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3148723544809013245, guid: 49672c5062134ba4dbb28581027cd94d,
         type: 3}
       propertyPath: m_LocalPosition.x
