@@ -1,67 +1,144 @@
-# Tower Defense AR
+# 🎮 Tower Defense AR
 
-## Description
-A brief overview of the Tower Defense AR game.
+An immersive augmented reality tower defense game where players defend their territory by strategically placing towers in the real world environment. Built with Unity and AR Foundation, this game combines classic tower defense mechanics with cutting-edge AR technology.
 
-## Installation
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/OmerKilicc/tower-defense-ar.git
-   cd tower-defense-ar
-   ```
-2. Install dependencies:
-   ```
-   Unity Version: 2024.3.15f1
-   ```
+## 🌟 Features
 
-## Architecture Overview
+- **Augmented Reality Experience**
+  - Seamless real-world environment integration
+  - Dynamic tower placement in AR space
+  - Interactive gameplay in physical surroundings
+  - Responsive AR touch controls
 
-### Project Structure Overview
+- **Tower Defense Mechanics**
+  - Strategic tower placement system
+  - Multiple tower types with unique abilities
+  - Tower upgrade paths
+  - Resource management system
 
-1. **Assets**: Contains all the game assets, including textures, models, audio files, and other resources used in the game.
-2. **Packages**: Includes references to Unity packages that the project depends on, providing additional functionality.
-3. **ProjectSettings**: Holds various configuration files for the Unity project, such as graphics and player settings.
+- **Enemy AI System**
+  - Advanced pathfinding using DFS algorithm
+  - Multiple enemy types with different behaviors
+  - Wave-based progression
+  - Dynamic difficulty scaling
 
-### Key Components
+- **Game Systems**
+  - Score tracking and leaderboards
+  - Level progression system
+  - Resource economy
+  - Wave management
 
-- **Game Engine**: Built using Unity, supporting 2D and 3D game development, including AR capabilities.
-- **AR Support**: Utilizes Unity's AR Foundation for building AR experiences across different platforms.
-- **Game Logic**: Contains scripts defining game mechanics, such as enemy behavior, player controls, and game state management.
+## 🔧 Technical Specifications
 
-### General Architecture Overview
+### Requirements
+- Unity 2022.3.15f1
+- AR-capable mobile device
+- AR Foundation package
+- Compatible with ARKit (iOS) and ARCore (Android)
 
-1. **Game Manager**:
-   - Central script that manages the overall game state, including starting and ending the game, managing levels, and tracking player scores.
+### Architecture Highlights
+- Modular component system
+- Optimized AR performance
+- Efficient pathfinding implementation
+- Robust game state management
 
-2. **Tower Class**:
-   - Represents the towers that players can place. This class typically includes properties such as damage, range, and firing rate, as well as methods for targeting enemies and firing projectiles.
+## 🎯 Core Gameplay Mechanics
 
-3. **Enemy Class**:
-   - Represents the enemies that will move along a path toward the player's base. This class usually includes properties like health, speed, and behavior patterns (e.g., different types of enemies with unique abilities).
+### Tower System
+1. Place towers in AR space
+2. Upgrade and enhance tower capabilities
+3. Strategic positioning for maximum effectiveness
+4. Resource management for tower deployment
 
-4. **Pathfinding**:
-   - Logic to determine the path that enemies will take to reach the player's base. This implementation uses Depth First Search (DFS) for pathfinding.
+### Enemy Waves
+1. Progressive wave difficulty
+2. Various enemy types and patterns
+3. Strategic pathfinding challenges
+4. Boss waves and special events
 
-5. **Projectile Class**:
-   - Represents the projectiles fired by towers. This class typically includes properties for speed, damage, and methods for detecting collisions with enemies.
+## 🚀 Development Setup
 
-6. **UI Manager**:
-   - Manages the user interface elements, such as displaying the player's score, health, and available towers. It handles user input for placing towers and upgrading them.
+1. Clone the repository
+```bash
+git clone https://github.com/OmerKilicc/tower-defense-ar.git
+cd tower-defense-ar
+```
 
-7. **Level Manager**:
-   - Responsible for loading and managing different levels, including spawning enemies and determining win/loss conditions.
+2. Open project in Unity 2022.3.15f1
 
-8. **Audio Manager**:
-   - Manages sound effects and background music throughout the game, enhancing the player's experience.
+3. Install required packages:
+   - AR Foundation
+   - AR Subsystems
+   - XR Plugin Management
 
-### Data Flow
-- **User Input**: Captured through UI elements to place towers and interact with the game.
-- **Game State Updates**: The Game Manager updates the game state based on player actions and enemy movements.
-- **Rendering**: Unity handles rendering the game scene, including towers, enemies, projectiles, and UI elements.
+## 🎨 Project Structure
 
-### Summary
+```
+Assets/
+├── _Scripts/
+│   ├── AR/             # AR functionality
+│   ├── Debug/          # Debugging tools
+│   ├── Enemy/          # Enemy AI
+│   ├── Events/         # Events system
+│   ├── Grid/           # Grid management
+│   ├── Managers/       # Game managers
+│   ├── Player/         # Player controls
+│   ├── Projectile/     # Projectiles
+│   └── Tower/          # Tower behaviors
+├── _Prefabs/
+│   ├── ARXR/           # ARXR prefabs
+│   ├── Enemy/          # Enemy prefabs
+│   ├── Grid/           # Grid prefabs
+│   ├── Managers/       # Managers prefabs
+│   ├── Tower/          # Tower prefabs
+│   └── UI/             # UI prefabs
+├── ThirdParty/         # Third-party libraries
+├── TextMesh Pro/       # TextMesh Pro assets
+├── SOs/                # Scriptable Objects
+├── SFX/                # Sound effects
+├── Scenes/             # Game scenes
+├── Plugins/            # Plugins
+├── Meshes/             # 3D meshes
+└── Materials/          # Materials
+```
 
-The Tower Defense AR project is structured to facilitate the development of an augmented reality game using Unity. It includes essential directories for assets, project settings, and version control, while leveraging Unity's powerful features for AR and game development.
+## ⚡ Key Components
 
-## License
-This project is licensed under the MIT License.
+### Game Manager
+- Central game state control
+- Wave management
+- Score tracking
+- Resource economy
+
+### AR System
+- Environment scanning
+- Surface detection
+- Tower placement validation
+- Touch interaction handling
+
+### Tower Manager
+- Tower spawning
+- Upgrade system
+- Target acquisition
+- Attack patterns
+
+### Enemy System
+- Spawn management
+- Pathfinding
+- Behavior patterns
+- Difficulty scaling
+
+## 📝 Development Notes
+
+- Optimized for mobile AR performance
+- Focus on user experience and intuitive controls
+- Regular testing on both iOS and Android devices
+- Emphasis on code maintainability and scalability
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+Built with Unity 2022.3.15f1
